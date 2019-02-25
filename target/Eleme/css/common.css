@@ -1,0 +1,45 @@
+#login a{
+    text-decoration: none;
+    color:#ffffff;
+}
+#topDiv a{
+    text-decoration: none;
+    color:#ffffff;
+}
+#login{
+    color: #ffffff;text-align: right;line-height: 60px;margin-right: 100px;
+}
+#loginInner{
+    color: #ffffff;line-height: 60px;
+}
+#searchAddress{
+    width: 100%;
+    text-align: center;
+    height: 100px;
+    position: absolute;
+    top: 200px;
+}
+#headerDiv{
+    background-color: #b598a1;
+}
+#topDiv{
+    font-size: 20px;
+    margin: 0 auto;
+    width: 1180px;
+    height: 60px;
+    line-height: 60px;
+}
+#loginInner{
+    height: 60px;
+    float: right;
+    text-align: center;
+}
+#loginInner::before{
+    content: "♀";
+}
+#topNavigation{
+    height: 60px;
+    float: left;
+    text-align: center;
+
+}

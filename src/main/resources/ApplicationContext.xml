@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd 
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 扫描包中注解标注的类 -->
+    <context:component-scan base-package="com.cod4man.eleme.service.impl"/>
+    <!--注入spring的dataSource操作类-->
+    <!--    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url">
+            <value><![CDATA[jdbc:mysql://localhost:3306/smbms?useUnicode=true&characterEncoding=utf-8]]></value>
+        </property>
+        <property name="username" value="root"/>
+        <property name="password" value="zhj123"/>
+    </bean>-->
+
+    <!--从外部配置文件引入dataSource-->
+    <!--引入properties配置文件-->
+<!--
+    <bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:database.properties</value>
+        </property>
+    </bean>
+    &lt;!&ndash;配置DataSource&ndash;&gt;
+    <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${dirver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${user}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+-->
+    <!--通过JNDI配置-->
+       <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <!--通过JNDIName指定引用的JNDI数据源名称-->
+        <property name="jndiName">
+            <value>java:comp/env/jndi/eleme</value>
+        </property>
+    </bean>
+    <!--配置SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--引用本页面的数据源组件-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--引用本项目中MyBatis配置文件xml中的配置-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!--配置SQL映射文件信息Mapper(如果xml和interface同一目录，则可以省略))-->
+<!--        <property name="mapperLocations">
+            <list>
+                <value>classpath*:com/dao/**/*.xml</value>
+            </list>
+        </property>-->
+    </bean>
+    <!--配置SqlSessionTemplate替代SqlSession-->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <!--自动扫描Mapper接口，将其注册成MapperFactoryBean，并命名为mapper文件名-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.cod4man.eleme.dao"/>
+    </bean>
+
+    <!--定义事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--事务增强-使用注解-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <!--事务增强-非注解方式-->
+    <!--    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="find*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="del*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+    &lt;!&ndash;定义切面&ndash;&gt;
+    <aop:config>
+        <aop:pointcut id="serviceMethod" expression="execution(* com.cod4man.service..*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/>
+    </aop:config>-->
+</beans>

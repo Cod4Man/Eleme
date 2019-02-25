@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cod4man.eleme.dao.RestaurantMapper">
+    <!--查询全部店铺-->
+    <select id="findAllRestauran" resultType="com.cod4man.eleme.pojo.Restaurant">
+          select r.*,rt.type as restaurantType  from restaurant r,restaurant_type rt where r.restaurantTypeNo=rt.id
+    </select>
+    <!--通过店铺唯一ID查询-->
+    <select id="findRestauran_byId" resultType="com.cod4man.eleme.pojo.Restaurant">
+          select * from restaurant r,restaurant_type rt where r.restaurantTypeNo=rt.id
+          and restaurantNo=#{restaurantNo}
+    </select>
+    <!--通过店铺类型查询-->
+    <select id="findRestauran_byType" resultType="com.cod4man.eleme.pojo.Restaurant">
+          select * from restaurant r,restaurant_type rt where r.restaurantTypeNo=rt.id
+          and type like concat('%',#{restaurantType},'%')
+    </select>
+    <!--通过店名查询店铺-->
+    <select id="findRestauran_ByName" resultType="com.cod4man.eleme.pojo.Restaurant">
+          select * from restaurant r,restaurant_type rt
+		  where r.restaurantTypeNo=rt.id and restaurantName like concat('%',#{restaurantName},'%')
+    </select>
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cod4man.eleme.dao.FoodsMapper">
+    <!--通过店铺唯一id查询全部食物商品-->
+    <select id="findAllFoodsById" resultType="com.cod4man.eleme.pojo.Foods">
+          select * from foods where restaurantNo = #{restaurantNo}
+    </select>
+    <!--通过店铺名字查询全部食物商品-->
+    <select id="findAllFoodsByName" resultType="com.cod4man.eleme.pojo.Foods">
+          select * from foods,restaurant rest where rest.restaurantNo=foods.restaurantNo
+          and restaurantName = #{restaurantName}
+    </select>
+</mapper>
