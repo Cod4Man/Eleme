@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cod4man.eleme.dao.ConsumerMapper">
+    <!--添加买家账户-->
+    <insert id="addConsumer">
+        insert into consumer (consumerNo,consumerPhoneNum,consumerNickName,
+        consumerLoginPsw,consumerMail,consumerStatus,
+        consumerWechar,consumerVIP,consumerPortraitURL,
+        consumerBalance)
+        values (#{consumerNo},#{consumerPhoneNum},#{consumerNickName},
+                      #{consumerLoginPsw},#{consumerMail},#{consumerStatus},
+                      #{consumerWechar},#{consumerVIP},#{consumerPortraitURL},
+                      #{consumerBalance})
+    </insert>
+    <!--查询全部-->
+    <select id="getList" resultType="Consumer">
+        select * from consumer
+    </select>
+    <!--修改用户余额-->
+    <update id="modifyBalance">
+        update consumer set
+        consumerBalance = consumerBalance + #{consumerBalance}
+    </update>
+    <!--修改用户密码-->
+    <update id="modifyPassword">
+        update consumer set
+        consumerLoginPsw =  #{consumerLoginPsw}
+        where id=#{id}
+    </update>
+    <!--修改用户信息-->
+    <update id="update">
+        update consumer set
+        consumerPhoneNum=#{consumerPhoneNum},consumerNickName=#{consumerNickName},consumerMail=#{consumerMail},
+        consumerWechar=#{consumerWechar},consumerVIP=#{consumerVIP},consumerPortraitURL=#{consumerPortraitURL}
+        where id=#{id}
+    </update>
+    <!--查询账户是否存在-->
+    <select id="conExists" resultType="Consumer">
+        select * from consumer where consumerPhoneNum=#{consumerPhoneNum}
+    </select>
+    <!--通过电话号码、密码登录-->
+    <select id="loginByPsw" resultType="com.cod4man.eleme.pojo.Consumer">
+        select * from consumer where consumerPhoneNum=#{consumerPhoneNum}
+        and consumerLoginPsw=#{consumerLoginPsw}
+    </select>
+    <!--查询买家编号是否存在-->
+    <select id="consumerNoUnique" resultType="int">
+        select count(1) from consumer where consumerNo=#{consumerNo}
+    </select>
+</mapper>

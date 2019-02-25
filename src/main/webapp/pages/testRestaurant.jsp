@@ -10,3 +10,4 @@
 	<% response.sendRedirect(request.getContextPath()+"/restaurant.do?info=findAll"); %>
 </body>
 </html>
+<%--ceshi--%> 
