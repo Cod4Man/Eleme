@@ -14,6 +14,13 @@
 </style>
 <script type="text/javascript">
     $(document).ready(function(){
+        $("#logout").click(function () {
+            if (confirm("确定要注销该账户吗？")) {
+                <%--"${sessionScope.remove("consumer")}"--%>
+                // sessionStorage.removeItem("consumer");
+                alert("注销成功！")
+            }
+        });
         x();
         function x(){
             $("#rest_type").find("li").click(function(){
@@ -36,6 +43,7 @@
 </script>
 </head>
 <body style="margin: 0px">
+<div foodId="${}" foodName="${}">炸鸡</div>
 <div>
     <div id="headerDiv">
         <header class="topbar">
@@ -46,7 +54,13 @@
                     <a href="">我的客服</a>
                 </div>
                 <div id="loginInner" align="right">
-                    <a id="loginInner-a" href="${pageContext.request.contextPath}/pages/consumers/login.jsp">注册/登录</a>
+                    <c:if test="${sessionScope.consumer == null}">
+                        <a id="loginInner-a" href="${pageContext.request.contextPath}/pages/consumers/login.jsp">注册/登录</a>
+                    </c:if>
+                    <c:if test="${sessionScope.consumer != null}">
+                        <a id="loginInner-a" href="${pageContext.request.contextPath}/pages/consumers/login.jsp">个人中心</a>
+                        [<a id="logout" href="javascript:void(0)">注销</a>]
+                    </c:if>
                 </div>
             </div>
         </header>

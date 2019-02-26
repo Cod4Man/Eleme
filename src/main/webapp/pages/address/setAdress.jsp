@@ -7,8 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../common/common.jsp"%>
+<jsp:include page="chooseAddress.jsp"></jsp:include>
 <h2>添加新地址</h2>
-<table>
+<table align="center">
     <tr>
         <td>姓名</td>
         <td><input id="name_Address" name="name_Address" type="text" placeholder="请输入您的姓名"></td>
@@ -31,6 +32,7 @@
             <button>取消</button>
         </td>
     </tr>
+    <jsp:include page="setAdress.jsp"></jsp:include>
 </table>
 <script>
     $(document).ready(function(){

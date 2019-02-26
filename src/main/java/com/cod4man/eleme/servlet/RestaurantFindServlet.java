@@ -1,5 +1,6 @@
 package com.cod4man.eleme.servlet;
 
+import com.cod4man.eleme.pojo.Consumer;
 import com.cod4man.eleme.pojo.Foods;
 import com.cod4man.eleme.pojo.Restaurant;
 import com.cod4man.eleme.service.FoodsService;
@@ -42,6 +43,8 @@ public class RestaurantFindServlet extends HttpServlet {
 			case "findAll":
 				//调用查询全部方法
 				restList = rd.findAllRestauran();
+				Consumer consumer = (Consumer) request.getSession().getAttribute("consumer");
+				request.getSession().setAttribute("consumer",consumer);
 				request.setAttribute("restList", restList);
 				request.getRequestDispatcher("/pages/restaurants.jsp").forward(request, response);
 				break;

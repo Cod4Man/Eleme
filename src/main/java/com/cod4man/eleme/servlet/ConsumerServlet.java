@@ -4,6 +4,9 @@ import com.cod4man.eleme.pojo.Address;
 import com.cod4man.eleme.pojo.Consumer;
 import com.cod4man.eleme.service.ConsumerService;
 import com.cod4man.eleme.util.RandomUtil;
+import com.cod4man.eleme.util.authCode.CodingUtil;
+import com.cod4man.eleme.util.authCode.HttpClientUtil;
+import com.cod4man.eleme.util.authCode.Util;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -46,12 +49,91 @@ public class ConsumerServlet extends HttpServlet {
                 case "ConsumerExists" : ConsumerExists(request, response); break;
                 case "ConsumerLoginByPsw" : ConsumerLoginByPsw(request, response); break;
                 case "setAddress" : setAddress(request, response); break;
+                case "loginByPsw" : loginByPsw(request, response); break;
+                case "loginByAuthCode" : loginByAuthCode(request, response); break;
+                case "sendAuthCode" : sendAuthCode(request, response); break;
+                case "getConsumerByPhoneNum" : getConsumerByPhoneNum(request, response); break;
                 default : break;
             }
         }
 
         printWriter.flush();
         printWriter.close();
+    }
+
+    private void sendAuthCode(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("发送验证码");
+        String Uid2 = "1936911833@qq.com";
+        String Key = "d41d8cd98f00b204e980";
+        String Uid = "Weekend";
+        String Key2 = "d41d8cd98f00b204e980";
+        String resultJson = "";
+        String phoneNum = request.getParameter("phoneNum");
+        int authCode = Integer.parseInt(Util.getRandNum());
+        String smsText = "您的验证码为"+ authCode +"，请于3分钟内正确输入，如非本人操作，请忽略此短信。";
+        HttpClientUtil client = HttpClientUtil.getInstance();
+        //UTF发送
+//        int result = client.sendMsgUtf8(Uid, Key, smsText, phoneNum);
+        int result = 2;
+        System.out.println("电话" + phoneNum);
+        if(result>0){
+            System.out.println("UTF8成功发送条数=="+result);
+            System.out.println("验证码为：" + authCode);
+            authCode = CodingUtil.coding(authCode);
+            resultJson = "{\"authCode\":\"" + authCode + "\",\"result\":\"true\"}";
+        }else{
+            resultJson = "{\"result\":\"false\"}";
+            System.out.println(client.getErrorMsg(result));
+        }
+        printWriter.write(resultJson);
+    }
+
+    private void getConsumerByPhoneNum(HttpServletRequest request, HttpServletResponse response) {
+        String phoneNum = request.getParameter("phoneNum");
+        Consumer consumer = new Consumer();
+        consumer.setConsumerPhoneNum(phoneNum);
+        Consumer consumer1 = consumerService.conExists(consumer);
+        try {
+            if (consumer1 != null) { //存在账号则跳转店铺列表主页
+                request.getSession().setAttribute("consumer",consumer1);
+                request.getRequestDispatcher("/restaurant.do?info=findAll").forward(request, response);
+            } else { //不存在账号则跳转至完善信息页面
+                request.getRequestDispatcher("/pages/consumers/completeConsumerInfo.jsp?phoneNum=" + phoneNum).forward(request, response);
+            }
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loginByAuthCode(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("通过验证码登录");
+        String phoneNum = request.getParameter("phoneNum");
+        int authCode = Integer.parseInt(request.getParameter("authCode"));
+        int authCodeReturn = Integer.parseInt(request.getParameter("authCodeReturn"));
+        if (authCode == CodingUtil.encoding(authCodeReturn)) { //验证码正确
+            printWriter.write("true");
+            System.out.println("验证码正确");
+        } else {
+            printWriter.write("false");
+            System.out.println("验证码错误");
+        }
+    }
+
+    private void loginByPsw(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("通过密码登录");
+        String phoneNum = request.getParameter("phoneNum");
+        String password = request.getParameter("password");
+        Consumer consumer = new Consumer();
+        consumer.setConsumerPhoneNum(phoneNum);
+        consumer.setConsumerLoginPsw(password);
+        Consumer consumer1 = consumerService.loginByPsw(consumer);
+        if (consumer1 == null) { //账户不存在
+            printWriter.write("false");
+        } else { //账户存在则跳转
+            printWriter.write("true");
+        }
     }
 
     private void setAddress(HttpServletRequest request, HttpServletResponse response) {
