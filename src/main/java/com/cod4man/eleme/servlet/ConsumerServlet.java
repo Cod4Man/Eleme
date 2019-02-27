@@ -7,16 +7,25 @@ import com.cod4man.eleme.util.RandomUtil;
 import com.cod4man.eleme.util.authCode.CodingUtil;
 import com.cod4man.eleme.util.authCode.HttpClientUtil;
 import com.cod4man.eleme.util.authCode.Util;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import static com.cod4man.eleme.util.RandomUtil.random;
 
@@ -205,7 +214,96 @@ public class ConsumerServlet extends HttpServlet {
 
     private void addConsumer(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("增加用户");
-        String phoneNum = request.getParameter("consumerPhoneNum");
+        Consumer consumer = new Consumer();
+        String uploadFilePath = null;
+        int cosumerNo =  RandomUtil.random(100000000,999999999);
+        while (consumerService.consumerNoUnique(cosumerNo + "")) {
+            cosumerNo =  RandomUtil.random(100000000,999999999);
+        }
+        //判断提交表单方式是否是复合式提交
+        if (ServletFileUpload.isMultipartContent(request)) {
+            //创建工厂
+            FileItemFactory fIF = new DiskFileItemFactory();
+            //创建工具
+            ServletFileUpload sFU = new ServletFileUpload(fIF);
+            try {
+                //获取表单内容
+                List<FileItem> fileItemList = sFU.parseRequest(request);
+                //遍历list集合
+                for (FileItem fileItem:fileItemList) {
+                    //判断是否是普通文本表单if(FileItem.isFormField())
+                    if(fileItem.isFormField()) { //文本
+                        if("consumerPhoneNum".equals(fileItem.getFieldName())) {
+                            consumer.setConsumerPhoneNum(fileItem.getString("utf-8"));
+                        } else if ("consumerNickName".equals(fileItem.getFieldName())) {
+                            consumer.setConsumerNickName(fileItem.getString("utf-8"));
+                        } else if ("consumerLoginPsw".equals(fileItem.getFieldName())) {
+                            consumer.setConsumerLoginPsw(fileItem.getString("utf-8"));
+                        } else if ("consumerMail".equals(fileItem.getFieldName())) {
+                            consumer.setConsumerMail(fileItem.getString("utf-8"));
+                        }
+                    } else { //文件
+//                        指定文件保存路径String
+                        uploadFilePath ="E:\\java_code\\IDEA_code\\Eleme\\src\\main\\webapp\\images\\consumer";
+                        //获取上传文件路径
+                        String itemPath = fileItem.getName();
+                        //创建文件
+                        File fullFile = new File(itemPath);
+                        //创建保存文件
+                        File saveFile = new File(uploadFilePath,
+                                cosumerNo + fullFile.getName().substring(fullFile.getName().lastIndexOf(".")));
+                        //写入文件
+                        fileItem.write(saveFile);
+                        //保存图片路径至JavaBean
+                        consumer.setConsumerPortraitURL(cosumerNo + fullFile.getName().substring(fullFile.getName().lastIndexOf(".")));
+                    }
+                }
+            } catch (FileUploadException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //生成用户随机编号
+            consumer.setConsumerNo("" + cosumerNo);
+            consumer.setConsumerStatus(1);
+            consumer.setConsumerWechar("暂未开发");
+            consumer.setConsumerVIP(0);
+            consumer.setConsumerBalance(0.0D);
+            try {
+                if (consumerService.addConsumer(consumer)) {//添加成功
+                    //携带consumer跳转至主页
+                    request.getSession().setAttribute("consumer",consumer);
+                    request.getRequestDispatcher("/restaurant.do?info=findAll").forward(request,response);
+                } else { //添加失败，注册失败！
+                    request.getRequestDispatcher("/pages/consumers/registerFailed.jsp").forward(request,response);
+                }
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*String phoneNum = request.getParameter("consumerPhoneNum");
         String consumerNickName = request.getParameter("consumerNickName");
         String consumerLoginPsw = request.getParameter("consumerLoginPsw");
         String consumerMail = request.getParameter("consumerMail");
@@ -226,20 +324,18 @@ public class ConsumerServlet extends HttpServlet {
         consumer.setConsumerVIP(0);
         consumer.setConsumerPortraitURL(consumerPortraitURL);
         consumer.setConsumerBalance(0.0D);
-
-        if (consumerService.addConsumer(consumer)) {//添加成功
-            printWriter.write("true");
-            //携带consumer跳转至主页
-            request.setAttribute("consumer",consumer);
-            try {
+        try {
+            if (consumerService.addConsumer(consumer)) {//添加成功
+                //携带consumer跳转至主页
+                request.getSession().setAttribute("consumer",consumer);
                 request.getRequestDispatcher("/restaurant.do?info=findAll").forward(request,response);
-            } catch (ServletException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } else { //添加失败，注册失败！
+                request.getRequestDispatcher("/pages/consumers/login.jsp").forward(request,response);
             }
-        } else {
-            printWriter.write("false");
-        }
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
     }
 }

@@ -13,7 +13,8 @@
 </head>
 <body>
 <h1 align="center">请完善个人信息</h1>
-    <form action="${pageContext.request.contextPath}/consumer.do?what=addConsumer" method="post">
+<%--复合式提交form表单，包含文件上传enctype="multipart/form-data"--%>
+    <form action="${pageContext.request.contextPath}/consumer.do?what=addConsumer" method="post" enctype="multipart/form-data">
         <table  id="completeConInfoTable" align="center">
             <tr  style="display: none">
                 <td>phoneNum</td>
@@ -42,7 +43,7 @@
         </tr>
         <tr>
                 <td>上传头像：</td>
-                <td><input type="file" id="consumerPortraitURL" name="consumerPortraitURL" ></td>
+                <td><input type="file" id="consumerPortraitURL" name="consumerPortraitURL" required ></td>
         </tr>
         <tr align="center">
                 <td colspan="2">
@@ -59,13 +60,13 @@
             var consumerPhoneNum = $("#consumerPhoneNum").val();
             var consumerLoginPsw = $("#consumerLoginPsw").val();
             var consumerLoginPsw2 = $("#consumerLoginPsw2").val();
-            var consumerMail = $("#consumerMail").val();
             if (consumerPhoneNum == null || consumerPhoneNum =="") {
                 alert("注册异常！");
                 location.href = "${pageContext.request.contextPath}/pages/consumers/login.jsp";
                 return false;
             } else if (consumerLoginPsw != consumerLoginPsw2) {
-
+                alert("两次输入的密码不一致！");
+                return false;
             }
         });
     });

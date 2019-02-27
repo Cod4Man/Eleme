@@ -25,21 +25,33 @@
 #topDiv{
     font-size: 20px;
     margin: 0 auto;
-    width: 1180px;
+    width: 80%;
     height: 60px;
     line-height: 60px;
 }
 #loginInner{
+    position: absolute;
     height: 60px;
     float: right;
     text-align: center;
-}
-#loginInner::before{
-    content: "♀";
+    left: 85%;
 }
 #topNavigation{
     height: 60px;
     float: left;
     text-align: center;
 
+}
+#consumerPortrait{
+    width:60px; height:60px; border-radius:100%; overflow:hidden;
+}
+#loginInner-a{
+}
+#goConsumer{
+    line-height: 30px;
+    text-align: left;
+    background-color: #C0C0C0;
+}
+#logout::before{
+    content: "";
 }

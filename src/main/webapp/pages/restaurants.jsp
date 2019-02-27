@@ -14,6 +14,7 @@
 </style>
 <script type="text/javascript">
     $(document).ready(function(){
+        //注销
         $("#logout").click(function () {
             if (confirm("确定要注销该账户吗？")) {
                 <%--"${sessionScope.remove("consumer")}"--%>
@@ -39,6 +40,16 @@
                 })
             });
         }
+        $("#consumerPortrait").mouseenter(function () {
+            $("#goConsumer").css("display","block")
+        });
+        $("#goConsumer").mouseleave(function () {
+            $(this).css("display","none")
+        })
+        //进入个人中心
+        $(".goConsumerCore").click(function () {
+            
+        });
     });
 </script>
 </head>
@@ -57,8 +68,14 @@
                         <a id="loginInner-a" href="${pageContext.request.contextPath}/pages/consumers/login.jsp">注册/登录</a>
                     </c:if>
                     <c:if test="${sessionScope.consumer != null}">
-                        <a id="loginInner-a" href="${pageContext.request.contextPath}/pages/consumers/login.jsp">个人中心</a>
-                        [<a id="logout" href="javascript:void(0)">注销</a>]
+                        <a id="loginInner-a" href="javascript:void(0)">
+                            <img class="goConsumerCore" id="consumerPortrait" src="${pageContext.request.contextPath}/images/consumer/${sessionScope.consumer.consumerPortraitURL}">
+                        </a>
+                        <%--//悬浮事件--%>
+                        <div id="goConsumer" style="display: none">
+                            <a class="goConsumerCore" href="javascript:void(0)" id="consumerCore">个人中心</a><br>
+                            <a href="javascript:void(0)" id="logout">注销</a>
+                        </div>
                     </c:if>
                 </div>
             </div>
@@ -76,9 +93,10 @@
         <table id="tb">
             <c:forEach items="${restList }" var="relist">
                 <tr>
-                    <td><img src="${pageContext.request.contextPath}/images/restaurant/${relist.restaurantPortraitURL }"></td><td class="restname" restaurantNo="${relist.restaurantNo }"
-                                                                                                                                  onclick="location.href='<%=request.getContextPath()%>/restaurant.do?info=findById&id=${relist.restaurantNo }'"
-                                                                                                                                  width="200px">${relist.restaurantName }</td>
+                    <td><img src="${pageContext.request.contextPath}/images/restaurant/${relist.restaurantPortraitURL }"></td>
+                    <td class="restname" restaurantNo="${relist.restaurantNo }"
+                        onclick="location.href='<%=request.getContextPath()%>/restaurant.do?info=findById&id=${relist.restaurantNo }'"
+                        width="200px">${relist.restaurantName }</td>
                 </tr>
             </c:forEach>
         </table>
