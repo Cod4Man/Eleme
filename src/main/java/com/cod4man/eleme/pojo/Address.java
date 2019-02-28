@@ -154,4 +154,9 @@ public class Address {
     this.checked = checked;
   }
 
+
+/*  @Override
+  public String toString() {
+    return "Address{" + "id=" + id + ", consumerNo='" + consumerNo + '\'' + ", province='" + province + '\'' + ", city='" + city + '\'' + ", district='" + district + '\'' + ", street='" + street + '\'' + ", streetNumber='" + streetNumber + '\'' + ", comment='" + comment + '\'' + ", checked=" + checked + ", business='" + business + '\'' + ", pointLat=" + pointLat + ", pointLng=" + pointLng + ", name='" + name + '\'' + ", phoneNum='" + phoneNum + '\'' + ", user=" + user + '}';
+  }*/
 }

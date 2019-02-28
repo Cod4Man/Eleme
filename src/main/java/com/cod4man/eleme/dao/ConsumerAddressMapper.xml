@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cod4man.eleme.dao.ConsumerAddressMapper">
+
+    <!--添加地址-->
+    <insert id="addAddress" parameterType="Address" >
+        insert into address values(default,#{consumerNo} ,#{province} ,#{city} ,#{district} ,#{street} ,
+        #{streetNumber} ,#{comment} ,#{checked} ,#{business} ,#{pointLng},#{pointLat} ,#{name} ,
+         #{phoneNum} ,0)
+    </insert>
+    <!--删除地址-->
+    <delete id="deleteAddress">
+          delete from address where id =#{addressId}
+    </delete>
+    <!--更改默认地址-->
+    <update id="changeChecked" >
+        UPDATE address SET checked =#{checked}
+        WHERE consumerNo = #{consumerNo}
+         <if test="addressId != -1" >
+             and id = #{addressId};
+         </if>
+    </update>
+    <!--查询用户所有地址集合-->
+    <select id="findAll_ByConNo" resultType="Address">
+        select * from address where consumerNo=#{consumerNo}
+    </select>
+    <!--查询用户默认地址-->
+    <select id="findChecked" resultType="Address">
+        SELECT * FROM address WHERE checked = 1 AND consumerNO=#{consumerNo}
+    </select>
+    <select id="findAddressById" resultType="Address">
+        SELECT * FROM address WHERE id=#{addressId}
+    </select>
+</mapper>

@@ -2,6 +2,7 @@ package com.cod4man.eleme.servlet;
 
 import com.cod4man.eleme.pojo.Address;
 import com.cod4man.eleme.pojo.Consumer;
+import com.cod4man.eleme.service.ConsumerAddressService;
 import com.cod4man.eleme.service.ConsumerService;
 import com.cod4man.eleme.util.RandomUtil;
 import com.cod4man.eleme.util.authCode.CodingUtil;
@@ -42,6 +43,8 @@ public class ConsumerServlet extends HttpServlet {
             new ClassPathXmlApplicationContext("ApplicationContext.xml");
     private ConsumerService consumerService =
             (ConsumerService) applicationContext.getBean("ConsumerService");
+    private ConsumerAddressService consumerAddressService =
+            (ConsumerAddressService) applicationContext.getBean("ConsumerAddressService");
     private PrintWriter printWriter ;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -65,7 +68,6 @@ public class ConsumerServlet extends HttpServlet {
                 default : break;
             }
         }
-
         printWriter.flush();
         printWriter.close();
     }
@@ -147,34 +149,40 @@ public class ConsumerServlet extends HttpServlet {
 
     private void setAddress(HttpServletRequest request, HttpServletResponse response) {
         String pointLng = request.getParameter("pointLng");
-        String pointlat = request.getParameter("pointlat");
+        String pointLat = request.getParameter("pointLat");
         String province = request.getParameter("province");
         String city = request.getParameter("city");
         String district = request.getParameter("district");
         String street = request.getParameter("street");
         String business = request.getParameter("business");
         String streetNumber = request.getParameter("streetNumber");
+        String name = request.getParameter("name_Address");
+        String comment = request.getParameter("comment_Address");
+        String consumerNo = request.getParameter("consumerNo_Address");
+        String phoneNum = request.getParameter("phoneNum_Address");
+        String addressChecked = request.getParameter("addressChecked");
         Address address = new Address();
-        address.setName("");
-        address.setPhoneNum("");
+        address.setName("" + name);
+        address.setPhoneNum("" + phoneNum);
         address.setUser(0);
-        address.setBusiness("");
-        address.setPointLat(0.0D);
-        address.setPointLng(0.0D);
-        address.setId(0);
-        address.setConsumerNo("");
-        address.setProvince("");
-        address.setCity("");
-        address.setDistrict("");
-        address.setStreet("");
-        address.setStreetNumber("");
-        address.setComment("");
-        address.setChecked(0);
-
-
-
-
-
+        address.setBusiness("" + business);
+        address.setPointLat(Double.parseDouble(pointLat));
+        address.setPointLng(Double.parseDouble(pointLng));
+        address.setConsumerNo("" + consumerNo);
+        address.setProvince("" + province);
+        address.setCity("" + city);
+        address.setDistrict("" + district);
+        address.setStreet("" + street);
+        address.setStreetNumber("" + streetNumber);
+        address.setComment("" + comment);
+        address.setChecked(Integer.parseInt(addressChecked));
+        //添加地址
+       System.out.println("地址为：" + address);
+        if (consumerAddressService.addAddress(address)) { //添加成功
+            printWriter.write("true");
+        } else { //添加失败
+            printWriter.write("false");
+        }
     }
 
     private void ConsumerLoginByPsw(HttpServletRequest request, HttpServletResponse response) {

@@ -122,10 +122,13 @@
                     return;
                 }
                 setTimeout(function () {
-                    location.href = "${pageContext.request.contextPath}/consumer.do?what=setAddress&pointLng="+ pointLng + "&pointlat=" +pointlat + "&business=" + business
+                    location.href = "${pageContext.request.contextPath}/pages/address/setAddress.jsp?pointLng="+ pointLng + "&pointLat=" +pointlat + "&business=" + business
                         + "&province=" + province + "&city=" + city + "&district=" + district
-                        + "&street=" + street + "&streetNumber=" + streetNumber;
-                },1000)
+                        + "&street=" + street + "&streetNumber=" + streetNumber
+                        +"&phoneNum=${param.phoneNum}&name=${param.name}&comment="
+                        + "${param.comment}&addressChecked=${param.addressChecked}";
+
+                },800)
 
             }
         });
