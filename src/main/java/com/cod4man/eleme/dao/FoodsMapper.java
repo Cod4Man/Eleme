@@ -16,4 +16,19 @@ public interface FoodsMapper {
 
 	//通过店铺名字查询全部食物商品
 	public List<Foods> findAllFoodsByName(@Param("restaurantName") String restaurantName);
+
+	//通过食物种类查询食物
+	public List<Foods> findFoodsByType(@Param("foodsType") String foodsType,
+									   									 @Param("restaurantNo") String restaurantNo);
+
+	//通过食物id查询食物
+	Foods findById(@Param("foodsNo") String foodsNo);
+
+	//修改商品评分
+	int modifyScore(@Param("foodsNo") String foodsNo,
+					 		      @Param("foodsScore")double foodsScore);
+
+	//修改商品价格
+	int modifyPrice(@Param("foodsNo") String foodsNo,
+							 	@Param("foodsPrice")double foodsPrice);
 }

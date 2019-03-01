@@ -30,11 +30,11 @@
                 <td ><input type="password" id="consumerLoginPsw" name="consumerLoginPsw"
                            placeholder="请输入密码(大小写字母/数字组成)" required pattern="[A-Za-z0-9]{6,20}"></td>
                 <td id="passwordStrongTd" align="left" width="250" >
-                    <span class="passwordStrong" style="width: 20px">&nbsp;&nbsp;</span>
-                    <span class="passwordStrong" style="width: 20px">&nbsp;&nbsp;</span>
-                    <span class="passwordStrong" style="width: 20px">&nbsp;&nbsp;</span>
-                    <span class="passwordStrong" style="width: 20px">&nbsp;&nbsp;</span>
-                    <span class="passwordStrong" style="width: 20px">&nbsp;&nbsp;</span>
+                    <span class="passwordStrong" style="border-radius:5px 5px 5px 5px;">&nbsp;&nbsp;</span>
+                    <span class="passwordStrong" style="border-radius:5px 5px 5px 5px;">&nbsp;&nbsp;</span>
+                    <span class="passwordStrong" style="border-radius:5px 5px 5px 5px;">&nbsp;&nbsp;</span>
+                    <span class="passwordStrong" style="border-radius:5px 5px 5px 5px;">&nbsp;&nbsp;</span>
+                    <span class="passwordStrong" style="border-radius:5px 5px 5px 5px;">&nbsp;&nbsp;</span>
                     <span id="passwordStrong"></span>
                 </td>
         </tr>

@@ -19,7 +19,7 @@
                 <tr>
                     <td width="80px" class="text_tabledetail2">手机号</td>
                     <td width="200px"><input type="text" name="phoneNum" value="" placeholder="请输入手机号码"/></td>
-                    <td width="130px"><a id="getAuthCode-a" href="javascript:void(0)">获取验证码</a></td>
+                    <td width="180px"><a id="getAuthCode-a" href="javascript:void(0)">获取验证码</a></td>
                 </tr>
                 <tr id="loginByPsw">
                     <td class="text_tabledetail2">密码</td>
@@ -55,6 +55,8 @@
 </html>
 <script>
     $(document).ready(function(){
+        TIMEOUT = 60;
+        num_timeOut =TIMEOUT;
         var loginType = "authCode";
         phoneNumPattern = new RegExp("^1\\d{10}$");
         passwordPattern  = new RegExp("^\\w{6,20}$");
@@ -105,8 +107,24 @@
                 }
             }
         });
+
     //获取验证码
-        $("#getAuthCode-a").click(function () {
+        $("#getAuthCode-a").click(function xx() {
+            if (num_timeOut != TIMEOUT) {
+                return;
+            }
+            var iii = setInterval(function () {
+                num_timeOut--;
+                if (num_timeOut >0) {
+                    $("#getAuthCode-a").html("请"+ num_timeOut +"秒后再获取验证码").css({"color":"#999","text-decoration":"none"});
+                } else {
+                    $("#getAuthCode-a").html("获取验证码").css({"color":"blue","text-decoration":"underline"});
+                    num_timeOut = TIMEOUT;
+                    clearInterval(iii);
+                }
+            },1000);
+            // clearInterval(iii);
+            setInterval(iii);
             var phoneNum2 =$("[name=phoneNum]").val();
             if (!phoneNumPattern.test(phoneNum2)) { //电话号码匹配错误
                 alert("请输入正确的电话号码！");
@@ -121,6 +139,10 @@
                         if (result.result == "false") {
                             alert("发送验证码异常！请重试！");
                         } else if (result.result == "true") {
+/*                            $('#getAuthCode-a').attr('disabled','true');
+                            setTimeout(function () {
+                                $('#getAuthCode-a').removeAttr('disabled');
+                            },60000);*/
                             //发送验证码成功
                             authCodeReturn = result.authCode;
                         }

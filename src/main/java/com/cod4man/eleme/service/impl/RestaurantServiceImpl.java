@@ -29,24 +29,24 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<Restaurant> findAllRestauran() {
-        return restaurantMapper.findAllRestauran();
+    public List<Restaurant> findAllRestauran(String consumerNo) {
+        return restaurantMapper.findAllRestauran(consumerNo);
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<Restaurant> findRestauran_byId(String restaurantId) {
-        return restaurantMapper.findRestauran_byId(restaurantId);
+    public List<Restaurant> findRestauran_byId(String restaurantId, String consumerNo) {
+        return restaurantMapper.findRestauran_byId(restaurantId, consumerNo);
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<Restaurant> findRestauran_byType(String restaurantType) {
-        return restaurantMapper.findRestauran_byType(restaurantType);
+    public List<Restaurant> findRestauran_byType(String restaurantType, String consumerNo) {
+        return restaurantMapper.findRestauran_byType(restaurantType, consumerNo);
     }
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<Restaurant> findRestauran_ByName(String restaurantName) {
-        return restaurantMapper.findRestauran_ByName(restaurantName);
+    public List<Restaurant> findRestauran_ByName(String restaurantName, String consumerNo) {
+        return restaurantMapper.findRestauran_ByName(restaurantName, consumerNo);
     }
 }

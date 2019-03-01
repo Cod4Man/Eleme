@@ -13,8 +13,24 @@ public class Foods {
 	private String foodsPictureURL;//商品图片
 	private String foodsSynopsis;//商品简介
 	private double foodsScore;//商品评分
+	private int foodsTypeNo; //食物种类编号
+	private FoodsType foodsType;//食物种类
 
+	public int getFoodsTypeNo() {
+		return foodsTypeNo;
+	}
 
+	public void setFoodsTypeNo(int foodsTypeNo) {
+		this.foodsTypeNo = foodsTypeNo;
+	}
+
+	public FoodsType getFoodsType() {
+		return foodsType;
+	}
+
+	public void setFoodsType(FoodsType foodsType) {
+		this.foodsType = foodsType;
+	}
 
 	public int getId() {
 		return id;

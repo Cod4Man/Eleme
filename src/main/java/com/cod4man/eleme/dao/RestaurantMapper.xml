@@ -3,23 +3,114 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cod4man.eleme.dao.RestaurantMapper">
+    <!--根据Typeid显示RestType-->
+    <select id="findRestTypeById" resultMap="RestTypeMap">
+        select * from restaurant_type where id=#{restaurantTypeNo}
+    </select>
+    <resultMap id="RestTypeMap" type="com.cod4man.eleme.pojo.RestaurantType">
+        <id property="id" column="id"/>
+        <result property="type" column="type"/>
+    </resultMap>
+    <!--根据Typeid显示RestType======结束-->
+
+    <!--根据AddressId显示Address-->
+    <select id="findRestAddress" resultMap="RestAddress">
+        select * from `address`
+        where consumerNo=#{restaurantNo} and `user`=1
+    </select>
+    <resultMap id="RestAddress" type="com.cod4man.eleme.pojo.Address">
+        <id property="id" column="id"/>
+        <result property="user" column="user"/>
+        <result property="name" column="name"/>
+        <result property="phoneNum" column="phoneNum"/>
+        <result property="pointLng" column="pointLng"/>
+        <result property="pointLat" column="pointLat"/>
+        <result property="business" column="business"/>
+        <result property="checked" column="checked"/>
+        <result property="comment" column="comment"/>
+        <result property="streetNumber" column="streetNumber"/>
+        <result property="street" column="street"/>
+        <result property="district" column="district"/>
+        <result property="city" column="city"/>
+        <result property="province" column="province"/>
+        <result property="district" column="district"/>
+        <result property="consumerNo" column="consumerNo"/>
+    </resultMap>
+    <!--根据AddressId显示Address====结束-->
+
+    <!--查询店铺共用resultMap-->
+    <resultMap id="RestaurantMap" type="com.cod4man.eleme.pojo.Restaurant">
+        <id property="id" column="id"/>
+        <result property="restaurantNo" column="restaurantNo"/>
+        <result property="restaurantName" column="restaurantName"/>
+        <result property="restaurantPhone" column="restaurantPhone"/>
+        <result property="restaurantPortraitURL" column="restaurantPortraitURL"/>
+        <result property="restaurantNotice" column="restaurantNotice"/>
+        <result property="restaurantTypeNo" column="restaurantTypeNo"/>
+        <association property="restaurantAddress" column="restaurantNo"  select="findRestAddress"/>
+        <association property="restaurantType" column="restaurantTypeNo"  select="findRestTypeById"/>
+    </resultMap>
+
     <!--查询全部店铺-->
-    <select id="findAllRestauran" resultType="com.cod4man.eleme.pojo.Restaurant">
-          select r.*,rt.type as restaurantType  from restaurant r,restaurant_type rt where r.restaurantTypeNo=rt.id
+    <select id="findAllRestauran" resultMap="RestaurantMap">
+          select * from restaurant r,restaurant_type rt,address
+          where r.restaurantTypeNo=rt.id
+          and r.restaurantNo = address.consumerNo
+          and address.pointLat between
+               (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+              and
+               (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+          and address.pointLng between
+              (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
+              and
+              (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
     </select>
+    <!--查询全部店铺====结束-->
+
     <!--通过店铺唯一ID查询-->
-    <select id="findRestauran_byId" resultType="com.cod4man.eleme.pojo.Restaurant">
-          select * from restaurant r,restaurant_type rt where r.restaurantTypeNo=rt.id
-          and restaurantNo=#{restaurantNo}
+    <select id="findRestauran_byId" resultMap="RestaurantMap">
+        select * from restaurant r,restaurant_type rt,address where r.restaurantTypeNo=rt.id
+        and r.restaurantNo = address.consumerNo and r.restaurantNo=#{restaurantNo}
+              and address.pointLat between
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+                  and
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+              and address.pointLng between
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
+                  and
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
     </select>
+    <!--通过店铺唯一ID查询=====结束-->
+
     <!--通过店铺类型查询-->
-    <select id="findRestauran_byType" resultType="com.cod4man.eleme.pojo.Restaurant">
-          select * from restaurant r,restaurant_type rt where r.restaurantTypeNo=rt.id
-          and type like concat('%',#{restaurantType},'%')
+    <select id="findRestauran_byType" resultMap="RestaurantMap">
+          select * from restaurant r,restaurant_type rt,address
+          where r.restaurantTypeNo=rt.id and r.restaurantNo = address.consumerNo
+          and `type` like  concat('%',#{restaurantType},'%')
+              and address.pointLat between
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+                  and
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+              and address.pointLng between
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
+                  and
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
     </select>
+    <!--通过店铺类型查询=====结束-->
+
     <!--通过店名查询店铺-->
-    <select id="findRestauran_ByName" resultType="com.cod4man.eleme.pojo.Restaurant">
-          select * from restaurant r,restaurant_type rt
-		  where r.restaurantTypeNo=rt.id and restaurantName like concat('%',#{restaurantName},'%')
+    <select id="findRestauran_ByName" resultMap="RestaurantMap">
+        select * from restaurant r,restaurant_type rt,address
+        where r.restaurantTypeNo=rt.id and r.restaurantNo = address.consumerNo
+        and restaurantName like concat('%',#{restaurantName},'%')
+              and address.pointLat between
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+                  and
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+              and address.pointLng between
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
+                  and
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
     </select>
+    <!--通过店名查询店铺=======结束-->
 </mapper>

@@ -8,14 +8,19 @@ import java.util.List;
 public interface RestaurantMapper {
 
 	//查询全部店铺
-	public List<Restaurant> findAllRestauran();
+	public List<Restaurant> findAllRestauran(@Param("consumerNo") String consumerNo);
 
 	//通过店铺唯一ID查询
-	public List<Restaurant> findRestauran_byId(@Param("restaurantNo") String restaurantNo);
+	public List<Restaurant> findRestauran_byId(@Param("restaurantNo") String restaurantNo,
+											   										@Param("consumerNo") String consumerNo);
 
 	//通过店铺类型查询
-	public List<Restaurant> findRestauran_byType(@Param("restaurantType") String restaurantType);
+	public List<Restaurant> findRestauran_byType(@Param("restaurantType") String restaurantType,
+																						  @Param("consumerNo") String consumerNo);
 
 	//通过店名查询店铺
-	public List<Restaurant> findRestauran_ByName(@Param("restaurantName") String restaurantName);
+	public List<Restaurant> findRestauran_ByName(@Param("restaurantName") String restaurantName,
+																							@Param("consumerNo") String consumerNo);
+
+
 }

@@ -3,13 +3,66 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cod4man.eleme.dao.FoodsMapper">
+    <!--通过食物id查询食物-->
+    <select id="findById" resultMap="FoodsMap">
+          select * from foods where foodsNo =#{foodsNo}
+    </select>
+    <resultMap type="com.cod4man.eleme.pojo.Foods" id="FoodsMap" >
+        <id property="id" column="id"></id>
+        <result property="restaurantNo" column="restaurantNo"/>
+        <result property="foodsNo" column="foodsNo"/>
+        <result property="foodsName" column="foodsName"/>
+        <result property="foodsPrice" column="foodsPrice"/>
+        <result property="foodsPictureURL" column="foodsPictureURL"/>
+        <result property="foodsSynopsis" column="foodsSynopsis"/>
+        <result property="foodsScore" column="foodsScore"/>
+        <result property="foodsScore" column="foodsScore"/>
+        <result property="foodsScore" column="foodsScore"/>
+        <result property="foodsTypeNo" column="foodsTypeNo"/>
+        <association property="foodsType" column="foodsTypeNo"  select="findTypeById"/><!--外链-->
+    </resultMap>
+    <!--通过食物id查询食物====结束-->
+
     <!--通过店铺唯一id查询全部食物商品-->
-    <select id="findAllFoodsById" resultType="com.cod4man.eleme.pojo.Foods">
+    <select id="findAllFoodsById" resultMap="FoodsMap">
           select * from foods where restaurantNo = #{restaurantNo}
     </select>
+    <!--通过店铺唯一id查询全部食物商品=====结束-->
+
     <!--通过店铺名字查询全部食物商品-->
-    <select id="findAllFoodsByName" resultType="com.cod4man.eleme.pojo.Foods">
-          select * from foods,restaurant rest where rest.restaurantNo=foods.restaurantNo
+    <select id="findAllFoodsByName" resultMap="FoodsMap">
+          select foods.* from foods,restaurant rest where rest.restaurantNo=foods.restaurantNo
           and restaurantName = #{restaurantName}
     </select>
+    <!--通过店铺名字查询全部食物商品=====结束-->
+
+    <!--通过食物种类查询食物-->
+    <select id="findFoodsByType" resultMap="FoodsMap">
+            select * from foods where type =#{foodsType}  and restaurantNo =#{restaurantNo}
+    </select>
+    <!--通过食物种类查询食物====结束-->
+
+
+
+
+
+
+    <!--通过类型编号查询类型-->
+    <select id="findTypeById" resultMap="FoodsTypeMap">
+        select * from foods_type where id=#{foodsTypeNo}
+    </select>
+    <resultMap id="FoodsTypeMap" type="com.cod4man.eleme.pojo.FoodsType">
+        <id column="id" property="id"/>
+        <result column="type" property="type"/>
+    </resultMap>
+    <!--通过类型编号查询类型====结束-->
+
+    <!--修改商品评分-->
+    <update id="modifyScore">
+          update foods set foodsScore =#{foodsScore}  where foodsNo =#{foodsNo}
+    </update>
+    <!--修改商品价格-->
+    <update id="modifyPrice">
+          update foods set foodsPrice =#{foodsPrice}  where foodsNo =#{foodsNo}
+    </update>
 </mapper>

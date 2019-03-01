@@ -8,13 +8,13 @@ package com.cod4man.eleme.pojo;
 public class Restaurant {
 	private int id;//id
 	private String restaurantNo;//店铺唯一编号
-	private String restaurantAddress;//店铺地址
+	private Address restaurantAddress;//店铺地址
 	private String restaurantName;//店铺名称
 	private String restaurantPhone;//店铺电话
 	private String restaurantPortraitURL;//店铺头像
 	private String restaurantNotice;//店铺公告
 	private int restaurantTypeNo;//店铺种类
-	private String restaurantType;//店铺种类名称
+	private RestaurantType restaurantType;//店铺种类
 
 
 
@@ -30,10 +30,10 @@ public class Restaurant {
 	public void setRestaurantNo(String restaurantNo) {
 		this.restaurantNo = restaurantNo;
 	}
-	public String getRestaurantAddress() {
+	public Address getRestaurantAddress() {
 		return restaurantAddress;
 	}
-	public void setRestaurantAddress(String restaurantAddress) {
+	public void setRestaurantAddress(Address restaurantAddress) {
 		this.restaurantAddress = restaurantAddress;
 	}
 	public String getRestaurantName() {
@@ -69,11 +69,11 @@ public class Restaurant {
 		this.restaurantTypeNo = restaurantTypeNo;
 	}
 
-	public String getRestaurantType() {
+	public RestaurantType getRestaurantType() {
 		return restaurantType;
 	}
 
-	public void setRestaurantType(String restaurantType) {
+	public void setRestaurantType(RestaurantType restaurantType) {
 		this.restaurantType = restaurantType;
 	}
 }

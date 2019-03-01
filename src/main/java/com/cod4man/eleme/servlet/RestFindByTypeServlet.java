@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.cod4man.eleme.pojo.Consumer;
 import com.cod4man.eleme.pojo.Restaurant;
 import com.cod4man.eleme.service.RestaurantService;
 import org.springframework.context.ApplicationContext;
@@ -29,12 +30,17 @@ public class RestFindByTypeServlet extends HttpServlet {
 			(RestaurantService) applicationContext.getBean("RestaurantService");
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//		HttpSession session = request.getSession();
+		//		Consumer consumer = (Consumer)session.getAttribute("consumer");
+		Consumer consumer = new Consumer();
+		consumer.setConsumerNo("111111111");
+
 		String type = request.getParameter("type");
 		List<Restaurant> restList = null;
 		if("全部".equals(type)) {
-			restList = rd.findAllRestauran();
+			restList = rd.findAllRestauran(consumer.getConsumerNo());
 		}else {
-			restList = rd.findRestauran_byType(type);}
+			restList = rd.findRestauran_byType(type,consumer.getConsumerNo());}
 		String listJSON = JSON.toJSONString(restList);
 		PrintWriter out = response.getWriter();
 		out.print(listJSON);

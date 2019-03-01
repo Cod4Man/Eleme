@@ -36,4 +36,36 @@ public class FoodsServiceImpl implements FoodsService {
     public List<Foods> findAllFoodsByName(String restaurantName) {
         return foodsMapper.findAllFoodsByName(restaurantName);
     }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public List<Foods> findFoodsByType(String foodsType, String restaurantNo) {
+        return foodsMapper.findFoodsByType(foodsType, restaurantNo);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public Foods findById(String foodsNo) {
+        return foodsMapper.findById(foodsNo);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public boolean modifyScore(String foodsNo, double foodsScore) {
+        boolean result = false;
+        if (foodsMapper.modifyScore(foodsNo, foodsScore) > 0) {
+            result = true;
+        }
+        return result;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public boolean modifyPrice(String foodsNo, double foodsPrice) {
+        boolean result = false;
+        if (foodsMapper.modifyPrice(foodsNo, foodsPrice) > 0) {
+            result = true;
+        }
+        return result;
+    }
 }

@@ -2,8 +2,10 @@ package com.cod4man.eleme.servlet;
 
 import com.cod4man.eleme.pojo.Consumer;
 import com.cod4man.eleme.pojo.Foods;
+import com.cod4man.eleme.pojo.FoodsType;
 import com.cod4man.eleme.pojo.Restaurant;
 import com.cod4man.eleme.service.FoodsService;
+import com.cod4man.eleme.service.FoodsTypeService;
 import com.cod4man.eleme.service.RestaurantService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -32,8 +34,14 @@ public class RestaurantFindServlet extends HttpServlet {
             (RestaurantService) applicationContext.getBean("RestaurantService");
     private static FoodsService fd =
             (FoodsService) applicationContext.getBean("FoodsService");
+    private static FoodsTypeService ftd =
+			(FoodsTypeService) applicationContext.getBean("FoodsTypeService");
 	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Consumer consumer = (Consumer)request.getSession().getAttribute("consumer");
+		List<FoodsType> foodsTypeList = null;
+		foodsTypeList = ftd.findAllFoodType();
+		request.setAttribute("foodsTypeList", foodsTypeList);
 		String restaurantName = null;
 		//定义储存对象的集合容器
 		List<Restaurant> restList = null;
@@ -42,9 +50,7 @@ public class RestaurantFindServlet extends HttpServlet {
 		switch (info) {
 			case "findAll":
 				//调用查询全部方法
-				restList = rd.findAllRestauran();
-				Consumer consumer = (Consumer) request.getSession().getAttribute("consumer");
-				request.getSession().setAttribute("consumer",consumer);
+				restList = rd.findAllRestauran(consumer.getConsumerNo());
 				request.setAttribute("restList", restList);
 				request.getRequestDispatcher("/pages/restaurants.jsp").forward(request, response);
 				break;
@@ -52,7 +58,7 @@ public class RestaurantFindServlet extends HttpServlet {
 				String id = request.getParameter("id");
 				foodsList = fd.findAllFoodsById(id);
 				request.setAttribute("foodsList", foodsList);
-				restList = rd.findRestauran_byId(id);
+				restList = rd.findRestauran_byId(id,consumer.getConsumerNo());
 				restaurantName = restList.get(0).getRestaurantName();
 				request.setAttribute("restaurantName", restaurantName);
 				request.getRequestDispatcher("/pages/restaurant.jsp").forward(request, response);
@@ -61,9 +67,11 @@ public class RestaurantFindServlet extends HttpServlet {
 				String name = request.getParameter("name");
 				foodsList =fd.findAllFoodsByName(name);
 				request.setAttribute("foodsList", foodsList);
-				restList = rd.findRestauran_ByName(name);
+				restList = rd.findRestauran_ByName(name,consumer.getConsumerNo());
 				restaurantName = restList.get(0).getRestaurantName();
+				String restaurantNo = restList.get(0).getRestaurantNo();
 				request.setAttribute("restaurantName", restaurantName);
+				request.setAttribute("restaurantNo", restaurantNo);
 				request.getRequestDispatcher("/pages/restaurant.jsp").forward(request, response);
 				break;
 				default:break;
