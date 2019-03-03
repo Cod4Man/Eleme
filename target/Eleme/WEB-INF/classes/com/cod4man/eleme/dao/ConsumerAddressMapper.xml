@@ -33,4 +33,13 @@
     <select id="findAddressById" resultType="Address">
         SELECT * FROM address WHERE id=#{addressId}
     </select>
+    <update id="modifyAddress">
+        update address set
+        consumerNo=#{address.consumerNo} ,province=#{address.province} ,city=#{address.city} ,
+        district=#{address.district} ,street=#{address.street} , streetNumber=#{address.streetNumber} ,
+        comment=#{address.comment} ,checked=#{address.checked} ,business=#{address.business} ,
+        pointLng=#{address.pointLng},pointLat=#{address.pointLat} ,`name`=#{address.name} ,
+        phoneNum=#{address.phoneNum} ,`user`=0
+         where id=#{addressId}
+    </update>
 </mapper>

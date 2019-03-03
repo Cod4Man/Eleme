@@ -1,3 +1,7 @@
+body{
+    margin: 0px;
+    background-color: rgba(251, 217, 231, 0.22);
+}
 #login a{
     text-decoration: none;
     color:#ffffff;
@@ -61,4 +65,55 @@
 }
 #completeConInfoTable tr{
     height: 35px;
+}
+#setAddresscheckedDiv{
+    position: fixed;
+    left:20%;
+    top:13.333%;
+    height: 400px;
+    width: 800px;
+    background-color: rgba(181, 181, 181, 0.73);
+}
+#closeAddressChecked{
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    text-align: right;
+}
+.rest_type{
+    cursor: pointer;
+}
+#leftConsumer{
+    float: left;
+    width: 15%;
+    height: 80%;
+}
+#rightConsumer{
+    margin: 20px;
+    float: left;
+    width: 80%;
+    height: 80%;
+    background-color: rgba(181, 181, 181, 0.22);
+}
+span[id^=show]{
+    line-height: 30px;
+}
+#consumerInfoTable tr{
+    height: 45px;
+}
+#addressListDiv div:not(.checkedAddressDiv){
+    background-color: #FFF;
+    float: left;
+    height: 100px;
+    width: 300px;
+    margin: 10px;
+    padding: 18px;
+}
+.checkedAddressDiv {
+    background-color: coral;
+    float: left;
+    height: 100px;
+    width: 300px;
+    margin: 10px;
+    padding: 18px;
 }

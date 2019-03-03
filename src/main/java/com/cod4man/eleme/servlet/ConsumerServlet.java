@@ -60,7 +60,6 @@ public class ConsumerServlet extends HttpServlet {
                 case "addConsumer" : addConsumer(request, response); break;
                 case "ConsumerExists" : ConsumerExists(request, response); break;
                 case "ConsumerLoginByPsw" : ConsumerLoginByPsw(request, response); break;
-                case "setAddress" : setAddress(request, response); break;
                 case "loginByPsw" : loginByPsw(request, response); break;
                 case "loginByAuthCode" : loginByAuthCode(request, response); break;
                 case "sendAuthCode" : sendAuthCode(request, response); break;
@@ -101,15 +100,19 @@ public class ConsumerServlet extends HttpServlet {
 
     private void getConsumerByPhoneNum(HttpServletRequest request, HttpServletResponse response) {
         String phoneNum = request.getParameter("phoneNum");
-        Consumer consumer = new Consumer();
-        consumer.setConsumerPhoneNum(phoneNum);
-        Consumer consumer1 = consumerService.conExists(consumer);
+        int authCode = Integer.parseInt(request.getParameter("authCode"));
+        int authCodeReturn = Integer.parseInt(request.getParameter("authCodeReturn"));
+        if (authCode != CodingUtil.encoding(authCodeReturn)) { //验证码不正确正确,防止恶意使用地址注册
+            System.out.println("检测到恶意登录gcbpn");
+            return;
+        }
+        Consumer consumer1 = (Consumer) request.getSession().getAttribute("consumer");
         try {
             if (consumer1 != null) { //存在账号则跳转店铺列表主页
-                request.getSession().setAttribute("consumer",consumer1);
-                request.getRequestDispatcher("/restaurant.do?info=findAll").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/restaurant.do?info=findAll");
             } else { //不存在账号则跳转至完善信息页面
-                request.getRequestDispatcher("/pages/consumers/completeConsumerInfo.jsp?phoneNum=" + phoneNum).forward(request, response);
+                request.getRequestDispatcher("/pages/consumers/completeConsumerInfo.jsp?phoneNum="
+                        + phoneNum + "&authCode=" + authCode + "&authCodeReturn=" + authCodeReturn).forward(request, response);
             }
         } catch (ServletException e) {
             e.printStackTrace();
@@ -124,6 +127,15 @@ public class ConsumerServlet extends HttpServlet {
         int authCode = Integer.parseInt(request.getParameter("authCode"));
         int authCodeReturn = Integer.parseInt(request.getParameter("authCodeReturn"));
         if (authCode == CodingUtil.encoding(authCodeReturn)) { //验证码正确
+            Consumer consumer = new Consumer();
+            consumer.setConsumerPhoneNum(phoneNum);
+            Consumer consumer1 = consumerService.conExists(consumer);
+            if (consumer1 != null) { //账号存在
+                //存储默认地址
+                Address address = consumerAddressService.findChecked(consumer1.getConsumerNo());
+                consumer1.setConsumerAddressChecked(address);
+                request.getSession().setAttribute("consumer",consumer1);
+            }
             printWriter.write("true");
             System.out.println("验证码正确");
         } else {
@@ -143,45 +155,14 @@ public class ConsumerServlet extends HttpServlet {
         if (consumer1 == null) { //账户不存在
             printWriter.write("false");
         } else { //账户存在则跳转
+            Consumer consumer2 = new Consumer();
+            consumer2.setConsumerPhoneNum(phoneNum);
+            Consumer consumer3 = consumerService.conExists(consumer2);
+            //存储默认地址
+            Address address = consumerAddressService.findChecked(consumer3.getConsumerNo());
+            consumer3.setConsumerAddressChecked(address);
+            request.getSession().setAttribute("consumer",consumer3);
             printWriter.write("true");
-        }
-    }
-
-    private void setAddress(HttpServletRequest request, HttpServletResponse response) {
-        String pointLng = request.getParameter("pointLng");
-        String pointLat = request.getParameter("pointLat");
-        String province = request.getParameter("province");
-        String city = request.getParameter("city");
-        String district = request.getParameter("district");
-        String street = request.getParameter("street");
-        String business = request.getParameter("business");
-        String streetNumber = request.getParameter("streetNumber");
-        String name = request.getParameter("name_Address");
-        String comment = request.getParameter("comment_Address");
-        String consumerNo = request.getParameter("consumerNo_Address");
-        String phoneNum = request.getParameter("phoneNum_Address");
-        String addressChecked = request.getParameter("addressChecked");
-        Address address = new Address();
-        address.setName("" + name);
-        address.setPhoneNum("" + phoneNum);
-        address.setUser(0);
-        address.setBusiness("" + business);
-        address.setPointLat(Double.parseDouble(pointLat));
-        address.setPointLng(Double.parseDouble(pointLng));
-        address.setConsumerNo("" + consumerNo);
-        address.setProvince("" + province);
-        address.setCity("" + city);
-        address.setDistrict("" + district);
-        address.setStreet("" + street);
-        address.setStreetNumber("" + streetNumber);
-        address.setComment("" + comment);
-        address.setChecked(Integer.parseInt(addressChecked));
-        //添加地址
-       System.out.println("地址为：" + address);
-        if (consumerAddressService.addAddress(address)) { //添加成功
-            printWriter.write("true");
-        } else { //添加失败
-            printWriter.write("false");
         }
     }
 
@@ -222,6 +203,8 @@ public class ConsumerServlet extends HttpServlet {
 
     private void addConsumer(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("增加用户");
+        int authCode = -98411;
+        int authCodeReturn = -9213;
         Consumer consumer = new Consumer();
         String uploadFilePath = null;
         int cosumerNo =  RandomUtil.random(100000000,999999999);
@@ -243,12 +226,21 @@ public class ConsumerServlet extends HttpServlet {
                     if(fileItem.isFormField()) { //文本
                         if("consumerPhoneNum".equals(fileItem.getFieldName())) {
                             consumer.setConsumerPhoneNum(fileItem.getString("utf-8"));
+                            //先判断账号是否存在
+                            if (consumerService.conExists(consumer) != null){ //账号存在，不能注册
+                                request.getRequestDispatcher("/pages/consumers/registerFailed.jsp").forward(request,response);
+                                return;
+                            }
                         } else if ("consumerNickName".equals(fileItem.getFieldName())) {
                             consumer.setConsumerNickName(fileItem.getString("utf-8"));
                         } else if ("consumerLoginPsw".equals(fileItem.getFieldName())) {
                             consumer.setConsumerLoginPsw(fileItem.getString("utf-8"));
                         } else if ("consumerMail".equals(fileItem.getFieldName())) {
                             consumer.setConsumerMail(fileItem.getString("utf-8"));
+                        } else if ("authCode".equals(fileItem.getFieldName())) {
+                            authCode = Integer.parseInt(fileItem.getString("utf-8"));
+                        } else if ("authCodeReturn".equals(fileItem.getFieldName())) {
+                            authCodeReturn = Integer.parseInt(fileItem.getString("utf-8"));
                         }
                     } else { //文件
 //                        指定文件保存路径String
@@ -273,6 +265,11 @@ public class ConsumerServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            if (authCode != CodingUtil.encoding(authCodeReturn)) { //验证码不正确正确,防止恶意使用地址注册
+                System.out.println("authCode=" + authCode + "&authCodeReturn=" + authCodeReturn + "&Encode=" + CodingUtil.encoding(authCodeReturn));
+                System.out.println("检测到恶意登录");
+                return;
+            }
             //生成用户随机编号
             consumer.setConsumerNo("" + cosumerNo);
             consumer.setConsumerStatus(1);
@@ -293,57 +290,5 @@ public class ConsumerServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*String phoneNum = request.getParameter("consumerPhoneNum");
-        String consumerNickName = request.getParameter("consumerNickName");
-        String consumerLoginPsw = request.getParameter("consumerLoginPsw");
-        String consumerMail = request.getParameter("consumerMail");
-        String consumerPortraitURL = request.getParameter("consumerPortraitURL");
-        Consumer consumer = new Consumer();
-        //生成用户随机编号
-        int cosumerNo =  RandomUtil.random(100000000,999999999);
-        while (consumerService.consumerNoUnique(cosumerNo + "")) {
-            cosumerNo =  RandomUtil.random(100000000,999999999);
-        }
-        consumer.setConsumerNo("" + cosumerNo);
-        consumer.setConsumerPhoneNum(phoneNum);
-        consumer.setConsumerNickName(consumerNickName);
-        consumer.setConsumerLoginPsw(consumerLoginPsw);
-        consumer.setConsumerMail(consumerMail);
-        consumer.setConsumerStatus(1);
-        consumer.setConsumerWechar("暂未开发");
-        consumer.setConsumerVIP(0);
-        consumer.setConsumerPortraitURL(consumerPortraitURL);
-        consumer.setConsumerBalance(0.0D);
-        try {
-            if (consumerService.addConsumer(consumer)) {//添加成功
-                //携带consumer跳转至主页
-                request.getSession().setAttribute("consumer",consumer);
-                request.getRequestDispatcher("/restaurant.do?info=findAll").forward(request,response);
-            } else { //添加失败，注册失败！
-                request.getRequestDispatcher("/pages/consumers/login.jsp").forward(request,response);
-            }
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 }

@@ -18,10 +18,9 @@
         <a href="${pageContext.request.contextPath}/pages/consumers/login.jsp">登录</a>
     </div>
     <div id="searchAddress" >
-        <a align="center" href="${pageContext.request.contextPath}/pages/address/chooseAddress.jsp" ><h1 >选择收货地址</h1></a>
+        <h1 id="welcome">欢迎使用Eleme！</h1>
     </div>
 </div>
-
 
 
 <div class="mapfooter" map-footer="" ALIGN="CENTER" STYLE="position: relative;bottom: 0px;height: 130px" >
@@ -40,3 +39,11 @@
 </div>
 </body>
 </html>
+
+<script>
+    $(document).ready(function(){
+        setInterval(function () {
+            $("#welcome").css("color","rgb("+255*Math.random()+","+255*Math.random()+","+255*Math.random()+")")
+        },600)
+    });
+</script>

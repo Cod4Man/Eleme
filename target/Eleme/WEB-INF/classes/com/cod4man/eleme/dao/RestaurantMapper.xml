@@ -57,13 +57,13 @@
           where r.restaurantTypeNo=rt.id
           and r.restaurantNo = address.consumerNo
           and address.pointLat between
-               (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
-              and
-               (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
-          and address.pointLng between
-              (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
-              and
-              (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)-0.03
+                  and
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)+0.03
+              and address.pointLng between
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)-0.03
+                  and
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)+0.03
     </select>
     <!--查询全部店铺====结束-->
 
@@ -72,13 +72,13 @@
         select * from restaurant r,restaurant_type rt,address where r.restaurantTypeNo=rt.id
         and r.restaurantNo = address.consumerNo and r.restaurantNo=#{restaurantNo}
               and address.pointLat between
-                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)-0.03
                   and
-                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)+0.03
               and address.pointLng between
-                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)-0.03
                   and
-                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)+0.03
     </select>
     <!--通过店铺唯一ID查询=====结束-->
 
@@ -88,13 +88,13 @@
           where r.restaurantTypeNo=rt.id and r.restaurantNo = address.consumerNo
           and `type` like  concat('%',#{restaurantType},'%')
               and address.pointLat between
-                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)-0.03
                   and
-                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)+0.03
               and address.pointLng between
-                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)-0.03
                   and
-                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)+0.03
     </select>
     <!--通过店铺类型查询=====结束-->
 
@@ -104,13 +104,13 @@
         where r.restaurantTypeNo=rt.id and r.restaurantNo = address.consumerNo
         and restaurantName like concat('%',#{restaurantName},'%')
               and address.pointLat between
-                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)-0.03
                   and
-                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)
+                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)+0.03
               and address.pointLng between
-                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)-0.03
                   and
-                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)
+                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)+0.03
     </select>
     <!--通过店名查询店铺=======结束-->
 </mapper>

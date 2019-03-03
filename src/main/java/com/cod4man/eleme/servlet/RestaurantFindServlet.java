@@ -51,8 +51,9 @@ public class RestaurantFindServlet extends HttpServlet {
 			case "findAll":
 				//调用查询全部方法
 				restList = rd.findAllRestauran(consumer.getConsumerNo());
-				request.setAttribute("restList", restList);
-				request.getRequestDispatcher("/pages/restaurants.jsp").forward(request, response);
+				request.getSession().setAttribute("restList", restList);
+				response.sendRedirect(request.getContextPath() + "/pages/restaurants.jsp");
+//				request.getRequestDispatcher("/pages/restaurants.jsp").forward(request, response);
 				break;
 			case "findById":
 				String id = request.getParameter("id");

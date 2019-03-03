@@ -18,7 +18,11 @@
         <table  id="completeConInfoTable" align="center">
             <tr  style="display: none">
                 <td width="90" >phoneNum</td>
-                <td width="200"><input type="text" id="consumerPhoneNum" name="consumerPhoneNum" value="${param.phoneNum}"></td>
+                <td width="200">
+                    <input style="display: none" type="text" name="authCode" value="${param.authCode}">
+                    <input style="display: none" type="text" name="authCodeReturn" value="${param.authCodeReturn}">
+                    <input type="text" id="consumerPhoneNum" name="consumerPhoneNum" value="${param.phoneNum}">
+                </td>
             </tr>
         <tr>
                 <td width="90">昵称：</td>

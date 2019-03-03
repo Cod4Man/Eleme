@@ -7,7 +7,16 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../common/common.jsp"%>
-<h2 align="center">添加新地址</h2>
+<h2 align="center">
+    <c:choose>
+        <c:when test="${param.phoneNum !=null or param.addressId != null}">
+            修改地址
+        </c:when>
+        <c:otherwise>
+            添加新地址
+        </c:otherwise>
+    </c:choose>
+</h2>
 <div id="chooseAddressDiv">
     <table align="center">
         <tr style="display: none">
@@ -39,9 +48,8 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td colspan="2" align="center">
                 <button id="saveAddress">保存</button>
-                <button>取消</button>
             </td>
         </tr>
     </table>
@@ -63,10 +71,11 @@
             var comment = $.trim($("#comment_Address").val());
             var addressChecked = $("input[type=radio]:checked").val();
             location.href = "${pageContext.request.contextPath}/pages/address/chooseAddress.jsp"
-                +"?phoneNum=" + phoneNum + "&name=" + name + "&comment=" + comment + "&addressChecked=" + addressChecked;
+                +"?phoneNum=" + phoneNum + "&addressId=${param.addressId}&name=" + name + "&comment=" + comment + "&addressChecked=" + addressChecked;
         });
         //提交地址
         $("#saveAddress").click(function () {
+            var addressChecked = $("input[type=radio]:checked").val();
             phoneNumPattern = new RegExp("^1\\d{10}$");
             var phoneNum= $.trim($("#phoneNum_Address").val());
             var name= $.trim($("#name_Address").val());
@@ -74,8 +83,10 @@
             //没有地图选点
             if (${param.pointLng == null or  param.pointLng ==''} || ${param.pointLat == null or  param.pointLat ==''}) {
                 alert("请先在地图选择详细位置");
+                $("#chooseAddress").click();
             } else if (consumerNo == null || consumerNo =='') { //用户session异常
-                alert("用户异常！");
+                alert("请先登录！");
+                location.href = "${pageContext.request.contextPath}/pages/consumers/login.jsp";
             } else if (name == null || name == '') { //联系人没写
                 alert("请选择联系人！");
             } else if (!phoneNumPattern.test(phoneNum)) { //手机号码格式不对
@@ -84,18 +95,20 @@
                 //获取input内容
                 var inputJson = $("#chooseAddressDiv").find(":input").serialize();
                 inputJson = inputJson.replace(/(=\++)/g,'=').replace(/(\++&)/g,"&");
-                alert("inputJson"+inputJson);
                 //ajax提交
                 $.ajax({
-                    "url" : "/consumer.do?what=setAddress&pointLng=${param.pointLng}&pointLat=${param.pointLat}&business=${param.business}&province=${param.province}&city=${param.city}&district=${param.district}&street=${param.street}&streetNumber=${param.streetNumber}",
+                    "url" : "/address.do?what=setAddress&addressId=${param.addressId}&consumerPhoneNum=${sessionScope.consumer.consumerPhoneNum}&pointLng=${param.pointLng}&pointLat=${param.pointLat}&business=${param.business}&province=${param.province}&city=${param.city}&district=${param.district}&street=${param.street}&streetNumber=${param.streetNumber}",
                     "type" : "post",
                     "dataType" : "text",
                     "data" : inputJson,
                     "success" : function (result) {
                         if (result == "true") {
-                            alert("添加地址成功！");
+                            //如果是默认地址，则需要刷新session的consumer(servlet实现)
+                            alert("更新地址成功！");
+                            location.reload();
+                            $("#setAddresscheckedDiv").hide();
                         } else {
-                            alert("添加地址失败！");
+                            alert("更新地址失败！");
                         }
                     }
                 });

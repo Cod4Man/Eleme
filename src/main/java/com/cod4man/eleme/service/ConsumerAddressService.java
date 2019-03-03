@@ -26,6 +26,6 @@ public interface ConsumerAddressService {
 	Address findChecked(String consumerNo);
 
 	//根据id获取地址
-	Address findAddressById (String addressId);
+	Address findAddressById (int addressId);
 
 }

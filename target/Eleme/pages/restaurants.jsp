@@ -14,73 +14,36 @@
 </style>
 <script type="text/javascript">
     $(document).ready(function(){
-        //注销
-        $("#logout").click(function () {
-            if (confirm("确定要注销该账户吗？")) {
-                <%--"${sessionScope.remove("consumer")}"--%>
-                // sessionStorage.removeItem("consumer");
-                alert("注销成功！")
-            }
-        });
+        function getType(type){
+            $.ajax({
+                url : "${pageContext.request.contextPath}/type.do",
+                data : "type=" + type,
+                type : "post",
+                dataType : "JSON",
+                success : function (result){
+                    $("#tb").html("");
+                    for(var i in result){
+                        $("#tb").append("<tr><td><img src=\"${pageContext.request.contextPath}/images/restaurant/"+result[i].restaurantPortraitURL+"\"/></td><td onclick=\"location.href='${pageContext.request.contextPath}/restaurant.do?info=findById&id="+result[i].restaurantNo+"'\" class=\"restname\" restaurantNo=\""+ result[i].restaurantNo +"\"  width=\"200px\" style=\"color:red\" >"+result[i].restaurantName+"</td></td></tr>");
+                    };
+                }
+            })
+        }
+        getType("全部");
         x();
         function x(){
-            $("#rest_type").find("li").click(function(){
+            $("#rest_type").find("li").click(function () {
                 var type = $(this).text();
-                $.ajax({
-                    url : "type.do",
-                    data : "type=" + type,
-                    type : "post",
-                    dataType : "JSON",
-                    success : function (result){
-                        $("#tb").html("");
-                        for(var i in result){
-                            $("#tb").append("<tr><td><img src=\"${pageContext.request.contextPath}/images/restaurant/"+result[i].restaurantPortraitURL+"\"/></td><td onclick=\"location.href='${pageContext.request.contextPath}/restaurant.do?info=findById&id="+result[i].restaurantNo+"'\" class=\"restname\" restaurantNo=\""+ result[i].restaurantNo +"\"  width=\"200px\" style=\"color:red\" >"+result[i].restaurantName+"</td></td></tr>");
-                        };
-                    }
-                })
+                getType(type);
             });
         }
-        $("#consumerPortrait").mouseenter(function () {
-            $("#goConsumer").css("display","block")
-        });
-        $("#goConsumer").mouseleave(function () {
-            $(this).css("display","none")
-        })
-        //进入个人中心
-        $(".goConsumerCore").click(function () {
-            
-        });
     });
 </script>
 </head>
-<body style="margin: 0px">
+<body >
 <div>
-    <div id="headerDiv">
-        <header class="topbar">
-            <div id="topDiv" align="center">
-                <div id="topNavigation" align="left">
-                    <a href="">首页</a>
-                    <a href="">我的订单</a>
-                    <a href="">我的客服</a>
-                </div>
-                <div id="loginInner" align="right">
-                    <c:if test="${sessionScope.consumer == null}">
-                        <a id="loginInner-a" href="${pageContext.request.contextPath}/pages/consumers/login.jsp">注册/登录</a>
-                    </c:if>
-                    <c:if test="${sessionScope.consumer != null}">
-                        <a id="loginInner-a" href="javascript:void(0)">
-                            <img class="goConsumerCore" id="consumerPortrait" src="${pageContext.request.contextPath}/images/consumer/${sessionScope.consumer.consumerPortraitURL}">
-                        </a>
-                        <%--//悬浮事件--%>
-                        <div id="goConsumer" style="display: none">
-                            <a class="goConsumerCore" href="javascript:void(0)" id="consumerCore">个人中心</a><br>
-                            <a href="javascript:void(0)" id="logout">注销</a>
-                        </div>
-                    </c:if>
-                </div>
-            </div>
-        </header>
-    </div>
+    <jsp:include page="${pageContext.request.contextPath}/pages/topBar.jsp"/>
+    <%--<%@include file= "consumerAddressCheckedBar.jsp"%>--%>
+    <jsp:include page="${pageContext.request.contextPath}/pages/consumerAddressCheckedBar.jsp"/>
     <div id="restList">
         <ul id="rest_type">
             <li class="rest_type">全部</li>

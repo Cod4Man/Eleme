@@ -66,10 +66,19 @@ public class ConsumerAddressServiceImpl implements ConsumerAddressService {
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public boolean modifyAddress(String conNo, int addressId, Address address) {
-        if (deleteAddress(addressId) ) { //删除后才做添加
-            return  addAddress(address);
+        boolean result = false;
+        if (address.getChecked() == 1) { //增加的默认地址，需要修改其他的
+            if (changeChecked(conNo,-1,0)) {
+                if (consumerAddressMapper.modifyAddress(conNo,addressId,address) > 0) {
+                    result = true;
+                }
+            }
+        } else {
+            if (consumerAddressMapper.modifyAddress(conNo,addressId,address) > 0) {
+                result = true;
+            }
         }
-        return false;
+        return result;
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
@@ -86,7 +95,7 @@ public class ConsumerAddressServiceImpl implements ConsumerAddressService {
     }
 
     @Override
-    public Address findAddressById(String addressId) {
+    public Address findAddressById(int addressId) {
         return consumerAddressMapper.findAddressById(addressId);
     }
 }

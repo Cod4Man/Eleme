@@ -21,7 +21,15 @@ public class Consumer {
   private int consumerVIP; // 是否会员 1/0
   private String consumerPortraitURL; //头像地址
   private double consumerBalance; //余额
+  private Address consumerAddressChecked; // 买家默认地址
 
+  public Address getConsumerAddressChecked() {
+    return consumerAddressChecked;
+  }
+
+  public void setConsumerAddressChecked(Address consumerAddressChecked) {
+    this.consumerAddressChecked = consumerAddressChecked;
+  }
 
   public int getId() {
     return id;

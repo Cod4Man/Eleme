@@ -13,8 +13,8 @@
 <head>
     <style type="text/css">
         body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";font-size:14px;}
-        #l-map{height:100%;width:91%;float: left;}
-        #r-result{width:8%;float: left;}
+        #l-map{height:100%;width:81%;float: left;}
+        #r-result{width:16%;float: left;}
     </style>
     <title>地址选择</title>
 </head>
@@ -125,7 +125,7 @@
                     location.href = "${pageContext.request.contextPath}/pages/address/setAddress.jsp?pointLng="+ pointLng + "&pointLat=" +pointlat + "&business=" + business
                         + "&province=" + province + "&city=" + city + "&district=" + district
                         + "&street=" + street + "&streetNumber=" + streetNumber
-                        +"&phoneNum=${param.phoneNum}&name=${param.name}&comment="
+                        +"&addressId=${param.addressId}&phoneNum=${param.phoneNum}&name=${param.name}&comment="
                         + "${param.comment}&addressChecked=${param.addressChecked}";
 
                 },800)

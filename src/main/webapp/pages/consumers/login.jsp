@@ -81,7 +81,7 @@
                             if (result == "false") {
                                 alert("验证码错误！");
                             } else if (result == "true") {
-                                location.href = "${pageContext.request.contextPath}/consumer.do?what=getConsumerByPhoneNum&phoneNum=" + phoneNum;
+                                location.href = "${pageContext.request.contextPath}/consumer.do?what=getConsumerByPhoneNum&phoneNum=" + phoneNum  + "&authCode=" + authCode + "&authCodeReturn=" + authCodeReturn;
                             }
                         }
                     });
@@ -100,7 +100,7 @@
                             if (result == "false") {
                                 alert("密码错误！");
                             } else if (result == "true") {
-                                location.href = "${pageContext.request.contextPath}/consumer.do?what=getConsumerByPhoneNum&phoneNum=" + phoneNum;
+                                location.href = "${pageContext.request.contextPath}/restaurant.do?info=findAll";
                             }
                         }
                     });
@@ -116,13 +116,14 @@
             var iii = setInterval(function () {
                 num_timeOut--;
                 if (num_timeOut >0) {
-                    $("#getAuthCode-a").html("请"+ num_timeOut +"秒后再获取验证码").css({"color":"#999","text-decoration":"none"});
+                    $("#getAuthCode-a").html("请"+ (num_timeOut+1) +"秒后再获取验证码").css({"color":"#999","text-decoration":"none"});
                 } else {
                     $("#getAuthCode-a").html("获取验证码").css({"color":"blue","text-decoration":"underline"});
-                    num_timeOut = TIMEOUT;
                     clearInterval(iii);
+                    num_timeOut = TIMEOUT;
                 }
             },1000);
+                num_timeOut--;
             // clearInterval(iii);
             setInterval(iii);
             var phoneNum2 =$("[name=phoneNum]").val();

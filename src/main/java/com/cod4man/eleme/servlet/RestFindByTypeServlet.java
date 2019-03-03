@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.alibaba.fastjson.JSON;
 import com.cod4man.eleme.pojo.Consumer;
@@ -30,10 +31,7 @@ public class RestFindByTypeServlet extends HttpServlet {
 			(RestaurantService) applicationContext.getBean("RestaurantService");
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//		HttpSession session = request.getSession();
-		//		Consumer consumer = (Consumer)session.getAttribute("consumer");
-		Consumer consumer = new Consumer();
-		consumer.setConsumerNo("111111111");
+		Consumer consumer = (Consumer)request.getSession().getAttribute("consumer");
 
 		String type = request.getParameter("type");
 		List<Restaurant> restList = null;
