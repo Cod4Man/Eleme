@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class FoodsServlet
  */
-@WebServlet("/foods.do")
+@WebServlet(urlPatterns ="/foods.do")
 public class FoodsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -26,17 +26,16 @@ public class FoodsServlet extends HttpServlet {
 		String info = request.getParameter("info");
 		PrintWriter out = response.getWriter();
 		switch (info) {
-		case "jia":
-			number = number + 1;
-			break;
-		case "jian":
-			if(number==0) {
-				number = 0;
-			}else {
-				number = number - 1;
-			}
-			break;
-			default :break;
+			case "jia":
+				number = number + 1;
+				break;
+			case "jian":
+				if(number==0) {
+					number = 0;
+				}else {
+					number = number - 1;
+				}
+				break;
 		}
 		out.print(number);
 		out.flush();

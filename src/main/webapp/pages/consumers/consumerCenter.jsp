@@ -57,7 +57,7 @@
             $("#rightConsumer").load("${pageContext.request.contextPath}/address.do?what=addressList");
         });
         $("#showCollet").click(function () {//我的收藏
-            $("#rightConsumer").html("<h1>我的收藏</h1>");
+            $("#rightConsumer").load("${pageContext.request.contextPath}/showCollectServlet.do?what=showAllCollect");
         });
     });
 </script>

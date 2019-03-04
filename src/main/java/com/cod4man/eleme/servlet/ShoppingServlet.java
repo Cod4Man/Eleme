@@ -16,7 +16,7 @@ import com.cod4man.eleme.pojo.testMap;
 /**
  * Servlet implementation class ShoppingServlet
  */
-@WebServlet("/shopping.do")
+@WebServlet(urlPatterns = "/shopping.do")
 public class ShoppingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Override
@@ -26,9 +26,9 @@ public class ShoppingServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		System.out.println("进入Servlet");
+		System.out.println("进入shoppingServlet");
+		String restaurantNo = request.getParameter("restaurantNo");
+		System.out.println(restaurantNo);
 		String json = request.getParameter("json");
 		json = json.replace("ZDKH", "{").replace("YDKH", "}").replace("ZZKH", "[").replace("YZKH", "]");
 

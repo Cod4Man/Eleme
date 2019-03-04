@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cod4man.eleme.dao.RestaurantColletMapper">
+    <!--添加收藏-->
+    <insert id="addRestaurantCollet" >
+        insert into restaurantCollet (consumerNo,restaurantNo)
+        values(#{consumerNo},#{restaurantNo})
+    </insert>
+    <!--取消收藏-->
+    <delete id="removeRestaurantCollet">
+        delete from restaurantCollet
+        where restaurantNo=#{restaurantNo} and consumerNo=#{consumerNo}
+    </delete>
+    <!--查询收藏记录-->
+    <select id="findRestaurant_ByConNo" resultMap="RestaurantColletMap">
+          select * from restaurantcollet
+          where consumerNo=#{consumerNo}
+    </select>
+    <resultMap id="RestaurantColletMap" type="com.cod4man.eleme.pojo.RestaurantCollet">
+        <id property="id" column="id"/>
+        <result property="consumerNo" column="consumerNo"/>
+        <result property="restaurantNo" column="restaurantNo"/>
+        <association property="restaurant" column="restaurantNo" select="restaurantCollet"/>
+    </resultMap>
+    <!--通过店铺编号查询店铺-->
+    <select id="restaurantCollet" resultType="Restaurant">
+        select * from restaurant
+        where restaurantNo=#{restaurantNo}
+    </select>
+    <!--查询店铺是否收藏-->
+    <select id="restaurantColletBoo" resultType="java.lang.Integer">
+        select count(1) from restaurantcollet
+        where restaurantNo=#{restaurantNo} and consumerNo=#{consumerNo}
+    </select>
+</mapper>

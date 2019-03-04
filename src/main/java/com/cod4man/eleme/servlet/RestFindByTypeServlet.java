@@ -22,7 +22,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Servlet implementation class RestFindByTypeServlet
  */
-@WebServlet("/type.do")
+@WebServlet(urlPatterns = "/type.do")
 public class RestFindByTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static ApplicationContext applicationContext =

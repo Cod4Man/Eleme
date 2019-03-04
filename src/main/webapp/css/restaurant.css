@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+ul, li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+
+.btn-numbox li {
+	float: left;
+}
+
+
+
+.btn-numbox .num-jian,.num-jia {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	text-align: center;
+	font-size: 16px;
+	color: #999;
+	cursor: pointer;
+	border: 1px solid #e6e6e6;
+}
+#input-num{
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	text-align: center;
+	font-size: 16px;
+	color: #999;
+	cursor: pointer;
+	border: 1px solid #e6e6e6;
+	
+}

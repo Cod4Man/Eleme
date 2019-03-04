@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+.right {
+	max-height: 330px;
+	position: fixed;
+	width: 330px;
+	display: none;
+	bottom: 50px;
+	right: 5px;
+	padding-bottom: 3px;
+	overflow: auto;
+}
+
+#cheTable{
+	align-content: center;
+	line-height: 12px;
+}
+
+#che {
+	position: fixed;
+	bottom: 20px;
+	right: 5px;
+	width: auto;
+	height: 30px;
+	width: 140px;
+	border-width: 0px;
+	border-radius: 10px;
+	background: #1E90FF;
+	cursor: pointer;
+	outline: none;
+	font-family: Microsoft YaHei;
+	color: white;
+	font-size: 18px;
+}
+
+
+#che:active { /* 鼠标移入按钮范围时改变颜色 */
+	box-shadow: .05em .1em .2em rgba(0, 0, 0, .6) inset;
+	border-color: rgba(0, 0, 0, .3);
+	background: #bbb;
+}
+
+#pay {
+	position: fixed;
+	bottom: 25px;
+	right: 165px;
+}

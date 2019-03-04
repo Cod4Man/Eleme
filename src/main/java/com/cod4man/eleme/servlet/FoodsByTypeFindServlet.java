@@ -19,7 +19,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Servlet implementation class FoodsByTypeFindServlet
  */
-@WebServlet("/foodsfind.do")
+@WebServlet(urlPatterns = "/foodsfind.do")
 public class FoodsByTypeFindServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static ApplicationContext applicationContext =
@@ -34,18 +34,18 @@ public class FoodsByTypeFindServlet extends HttpServlet {
 		String restaurantNo = request.getParameter("restaurantNo");
 		List<Foods> foodsList = null;
 		switch (info) {
-		case "byType":
-			if("全部".equals(type)) {
-				//查询全部食物
-				foodsList = fd.findAllFoodsById(restaurantNo);
+			case "byType":
+				if("全部".equals(type)) {
+					//查询全部食物
+					foodsList = fd.findAllFoodsById(restaurantNo);
+					break;
+				}else {
+					//通过类型查询
+					foodsList = fd.findFoodsByType(type,restaurantNo);
+					break;
+				}
+			default:
 				break;
-			}else {
-				//通过类型查询
-				foodsList = fd.findFoodsByType(type,restaurantNo);
-				break;
-			}
-		default:
-			break;
 		}
 		PrintWriter out = response.getWriter();
 		String foods = JSON.toJSONString(foodsList);
