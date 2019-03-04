@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cod4man.eleme.dao.OrderDetailMapper">
+    <!--添加历史订单详情-->
+    <insert id="addOrderDetail" >
+        insert into orderdetail(orderHistoryNo,foodsNo,foodsNum)
+        VALUES
+        <foreach collection="orderDetailList" item="orderDetail" separator="," index="i" open="" close="" >
+            (#{orderDetail.orderHistoryNo},#{orderDetail.foodsNo},#{orderDetail.foodsNum})
+        </foreach>
+    </insert>
+    <!--查询个人历史订单详情-->
+    <select id="find_ByOrderNo" resultMap="OrderDetailMap">
+        select * from orderdetail
+        where orderHistoryNo=#{orderHistoryNo}
+    </select>
+    <resultMap id="OrderDetailMap" type="com.cod4man.eleme.pojo.OrderDetail">
+        <id property="id" column="id"/>
+        <result property="orderHistoryNo" column="orderHistoryNo"/>
+        <result property="foodsNo" column="foodsNo"/>
+        <result property="foodsNum" column="foodsNum"/>
+        <association property="foods" column="foodsNo" select="com.cod4man.eleme.dao.FoodsMapper.findById"/>
+    </resultMap>
+    <!--删除历史订单详情-->
+    <delete id="deleteOrderDetail">
+        delete from orderdetail
+        where orderHistoryNo=#{orderHistoryNo}
+    </delete>
+</mapper>

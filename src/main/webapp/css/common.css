@@ -85,14 +85,14 @@ body{
 }
 #leftConsumer{
     float: left;
-    width: 15%;
+    width: 10%;
     height: 80%;
 }
 #rightConsumer{
-    margin: 20px;
+    padding: 20px;
     float: left;
     width: 80%;
-    height: 80%;
+    height: 40%;
     background-color: rgba(181, 181, 181, 0.22);
 }
 span[id^=show]{
@@ -116,4 +116,16 @@ span[id^=show]{
     width: 300px;
     margin: 10px;
     padding: 18px;
+}
+#orderhistory-div tr:not(#orderhistorytable-title){
+    height: 100px;
+}
+#leftConsumer h2{
+    cursor:pointer;
+}
+#foods-div tr:not(#orederDeatilTableTitle){
+    height: 50px;
+}
+#orederDeatilTableTitle{
+    height: 30px;
 }

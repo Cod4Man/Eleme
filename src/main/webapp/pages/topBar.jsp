@@ -12,7 +12,7 @@
         <div id="topDiv" align="center">
             <div id="topNavigation" align="left">
                 <a href="javascript:void(0)" id="back2Restaurant">首页</a>
-                <a href="javascript:void(0)">我的订单</a>
+                <a href="${pageContext.request.contextPath}/pages/consumers/consumerCenter.jsp?orderHistory=zzzz" id="goOrderHistory">我的订单</a>
                 <a href="javascript:void(0)">我的客服</a>
             </div>
             <div id="loginInner" align="right">

@@ -48,6 +48,8 @@ public class AddressServlet extends HttpServlet {
                 default: break;
             }
         }
+        printWriter.flush();
+        printWriter.close();
     }
 
     private void getAddressById(HttpServletRequest request, HttpServletResponse response) {

@@ -71,14 +71,16 @@
     <select id="findRestauran_byId" resultMap="RestaurantMap">
         select * from restaurant r,restaurant_type rt,address where r.restaurantTypeNo=rt.id
         and r.restaurantNo = address.consumerNo and r.restaurantNo=#{restaurantNo}
-              and address.pointLat between
-                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)-0.03
-                  and
-                   (select pointLat from address where consumerNo=#{consumerNo} and checked=1)+0.03
-              and address.pointLng between
-                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)-0.03
-                  and
-                  (select pointLng from address where consumerNo=#{consumerNo} and checked=1)+0.03
+        <if test="consumerNo != null and consumerNo != ''">
+            and address.pointLat between
+            (select pointLat from address where consumerNo=#{consumerNo} and checked=1)-0.03
+            and
+            (select pointLat from address where consumerNo=#{consumerNo} and checked=1)+0.03
+            and address.pointLng between
+            (select pointLng from address where consumerNo=#{consumerNo} and checked=1)-0.03
+            and
+            (select pointLng from address where consumerNo=#{consumerNo} and checked=1)+0.03
+        </if>
     </select>
     <!--通过店铺唯一ID查询=====结束-->
 

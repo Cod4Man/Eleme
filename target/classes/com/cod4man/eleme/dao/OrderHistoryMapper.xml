@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cod4man.eleme.dao.OrderHistoryMapper">
+    <!--添加个人历史订单-->
+    <insert id="addOrderHistory" parameterType="OrderHistory">
+        insert into orderhistory(consumerNo,restaurantNo,orderDate,addressId,orderStatus,orderHistoryNo,price,comment)
+         values(#{consumerNo},#{restaurantNo},#{orderDate},#{addressId},#{orderStatus},#{orderHistoryNo},#{price},#{comment});
+        insert into orderdetail(orderHistoryNo,foodsNo,foodsNum)
+        VALUES
+        <foreach collection="orderDetailList" item="orderDetail" separator="," index="i" open="" close="" >
+            (#{orderDetail.orderHistoryNo},#{orderDetail.foodsNo},#{orderDetail.foodsNum})
+        </foreach>
+    </insert>
+    <!--修改订单状态-->
+    <update id="modifyOrderStatus">
+        UPDATE orderhistory SET orderStatus =#{status}  WHERE id =#{id}
+    </update>
+    <!--查看个人历史订单-->
+    <select id="findAll_ByConNo" resultMap="OrderHistoryMap">
+        select * from orderhistory
+        where consumerNo=#{consumerNo}
+        order by orderDate desc
+    </select>
+    <!--查看个人某个历史订单-->
+    <select id="findOrder" resultMap="OrderHistoryMap">
+        select * from orderhistory
+        where orderHistoryNo=#{orderHistoryNo}
+    </select>
+    <resultMap id="OrderHistoryMap" type="com.cod4man.eleme.pojo.OrderHistory">
+        <id property="id" column="id"/>
+        <result property="consumerNo" column="consumerNo"/>
+        <result property="restaurantNo" column="restaurantNo"/>
+        <result property="orderHistoryNo" column="orderHistoryNo"/>
+        <result property="orderDate" column="orderDate"/>
+        <result property="addressId" column="addressId"/>
+        <result property="orderStatus" column="orderStatus"/>
+        <result property="price" column="price"/>
+        <result property="comment" column="comment"/>
+        <association property="orderStatusName" column="orderStatus" select="orderStatus"/>
+        <association property="restaurant" column="{restaurantNo=restaurantNo,consumerNo=consumerNo}" select="com.cod4man.eleme.dao.RestaurantMapper.findRestauran_byId"/>
+        <association property="orderDetailList" column="orderHistoryNo"  select="com.cod4man.eleme.dao.OrderDetailMapper.find_ByOrderNo"/>
+        <association property="address" column="addressId"  select="com.cod4man.eleme.dao.ConsumerAddressMapper.findAddressById"/>
+    </resultMap>
+    <!--查找订单状态-->
+    <select id="orderStatus" resultType="String">
+        select status from orderstatus where id=#{orderStatus}
+    </select>
+    <!--删除某订单-->
+    <delete id="deleteOrderHistory">
+        delete from orderhistory
+        where orderHistoryNo=#{orderHistoryNo};
+        delete from orderdetail
+        where orderHistoryNo=#{orderHistoryNo};
+    </delete>
+</mapper>

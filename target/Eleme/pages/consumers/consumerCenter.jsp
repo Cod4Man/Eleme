@@ -16,12 +16,12 @@
 <jsp:include page="${pageContext.request.contextPath}/pages/topBar.jsp"/>
 <jsp:include page="${pageContext.request.contextPath}/pages/consumerAddressCheckedBar.jsp"/>
 <div>
-<div id="leftConsumer">
+<div id="leftConsumer" style="margin: 20px 0px 0px 15px">
     <h2 id="showCenter">个人中心</h2>
-    <h2 id="showOrder">我的订单</h2>
-    <h2>我的资料</h2>
-    <span id="showInfo">个人资料</span><br>
-    <span id="showAddress">地址管理</span>
+    <h2 id="showOrder"  >我的订单</h2>
+    <h2 id="showSpan">我的资料</h2>
+    <span id="showInfo" style="cursor: pointer" >个人资料</span><br id="brbrbr">
+    <span id="showAddress" style="cursor: pointer" >地址管理</span>
     <h2 id="showCollet">我的收藏</h2>
 </div>
 <div id="rightConsumer"><h1>个人中心</h1></div>
@@ -30,11 +30,25 @@
 </html>
 <script>
     $(document).ready(function(){
+        $("#showInfo").hide();
+        $("#showAddress").hide();
+        $("#brbrbr").hide();
+        $("#showSpan").click(function () {
+            $("#showInfo").show();
+            $("#showAddress").show();
+            $("#brbrbr").show();
+        });
+        function showOrderF() {//我的订单
+            $("#rightConsumer").load("${pageContext.request.contextPath}/orderhistory.do?what=showAll");
+        }
+        if (${param.orderHistory == "zzzz"}) {
+            showOrderF();
+        }
         $("#showCenter").click(function () {//个人中心
             location.reload();
         });
-        $("#showOrder").click(function () {//我的订单
-            $("#rightConsumer").html("<h1>我的订单</h1>");
+        $("#showOrder").click(function () {
+            $("#rightConsumer").load("${pageContext.request.contextPath}/orderhistory.do?what=showAll");
         });
         $("#showInfo").click(function () {//我的资料
             $("#rightConsumer").load("${pageContext.request.contextPath}/pages/consumers/consumerInfo.jsp");
