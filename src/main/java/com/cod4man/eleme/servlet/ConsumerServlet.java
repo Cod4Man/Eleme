@@ -280,7 +280,8 @@ public class ConsumerServlet extends HttpServlet {
                 if (consumerService.addConsumer(consumer)) {//添加成功
                     //携带consumer跳转至主页
                     request.getSession().setAttribute("consumer",consumer);
-                    request.getRequestDispatcher("/restaurant.do?info=findAll").forward(request,response);
+                    response.sendRedirect(request.getContextPath() + "/restaurant.do?info=findAll");
+//                    request.getRequestDispatcher("/restaurant.do?info=findAll").forward(request,response);
                 } else { //添加失败，注册失败！
                     request.getRequestDispatcher("/pages/consumers/registerFailed.jsp").forward(request,response);
                 }

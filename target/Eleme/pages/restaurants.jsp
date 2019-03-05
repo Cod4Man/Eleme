@@ -66,5 +66,6 @@
     </div>
 </div>
 	<input type="hidden" id="hidd" value="<%=request.getContextPath()%>" />
+<jsp:include page="${pageContext.request.contextPath}/pages/bottomBar.jsp"/>
 </body>
 </html>

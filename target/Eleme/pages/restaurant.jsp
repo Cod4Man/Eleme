@@ -193,5 +193,6 @@ $(function () {
  	</table>
  </form>
   <button id="pay">立即支付</button><button id="che">购物车</button>
+	<jsp:include page="${pageContext.request.contextPath}/pages/bottomBar.jsp"/>
 </body>
 </html>

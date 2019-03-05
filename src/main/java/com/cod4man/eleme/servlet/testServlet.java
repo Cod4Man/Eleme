@@ -79,6 +79,7 @@ public class testServlet extends HttpServlet {
 		}
 		String body = table.toString();
 		request.getSession().setAttribute("foodMap", foodMap);
+		System.out.println("=====" + foodMap.keySet().size());
 		request.setAttribute("body", body);
 		request.setAttribute("jiage", jiage);
 		request.setAttribute("fenshu", fenshu);
@@ -100,8 +101,9 @@ public class testServlet extends HttpServlet {
 		OrderHistory oh = new OrderHistory();
         List<OrderDetail> orderDetailList = new ArrayList<>();
         //把foodsMap转换成List<OrderDetail>
-        OrderDetail orderDetail = new OrderDetail();
+        OrderDetail orderDetail = null;
         for (Foods foods :foodmap.keySet()) {
+        	orderDetail = new OrderDetail();
             orderDetail.setOrderHistoryNo(danhao);
             orderDetail.setFoodsNo(foods.getFoodsNo());
             orderDetail.setFoodsNum(Integer.parseInt(foodmap.get(foods)));

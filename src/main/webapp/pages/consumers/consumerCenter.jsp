@@ -26,6 +26,7 @@
 </div>
 <div id="rightConsumer"><h1>个人中心</h1></div>
 </div>
+<jsp:include page="${pageContext.request.contextPath}/pages/bottomBar.jsp"/>
 </body>
 </html>
 <script>
@@ -47,10 +48,10 @@
         $("#showCenter").click(function () {//个人中心
             location.reload();
         });
-        $("#showOrder").click(function () {
+        $("#showOrder").click(function () {//我的订单
             $("#rightConsumer").load("${pageContext.request.contextPath}/orderhistory.do?what=showAll");
         });
-        $("#showInfo").click(function () {//我的资料
+        $("#showInfo").click(function () {//个人资料
             $("#rightConsumer").load("${pageContext.request.contextPath}/pages/consumers/consumerInfo.jsp");
         });
         $("#showAddress").click(function () {//地址管理

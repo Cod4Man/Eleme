@@ -10,8 +10,15 @@
 
 <div id="orderDetail-div" style="margin: 25px">
     <div id="restaurant-div" style="cursor: pointer" onclick="location.href='${pageContext.request.contextPath}/restaurant.do?info=findById&id=${orderHistory.restaurant.restaurantNo }'">
-        <img style="vertical-align:middle" src="${pageContext.request.contextPath}/images/restaurant/${orderHistory.restaurant.restaurantPortraitURL }">
-        ${orderHistory.restaurant.restaurantName }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)">收藏</a>
+        <c:choose>
+            <c:when test="${orderHistory.restaurant.restaurantName != null}">
+                <img style="vertical-align:middle" src="${pageContext.request.contextPath}/images/restaurant/${orderHistory.restaurant.restaurantPortraitURL }">
+                ${orderHistory.restaurant.restaurantName }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)">收藏</a>
+            </c:when>
+            <c:otherwise>
+                <span style="color: red">店铺不在当前地址的配送范围</span>
+            </c:otherwise>
+        </c:choose>
         <br>订单号：${orderHistory.orderHistoryNo} &nbsp;&nbsp;&nbsp;商家电话：${orderHistory.restaurant.restaurantPhone}
     </div>
     <div id="foods-div">

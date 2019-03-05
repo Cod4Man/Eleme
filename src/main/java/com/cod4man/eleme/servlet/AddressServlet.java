@@ -142,7 +142,7 @@ public class AddressServlet extends HttpServlet {
         address.setComment("" + comment);
         address.setChecked(Integer.parseInt(addressChecked));
         //添加地址
-        if (addressId == null) { //说明是增加地址
+        if (addressId == null || "".equals(addressId)) { //说明是增加地址
             if (consumerAddressService.addAddress(address)) { //添加成功
                 printWriter.write("true");
             } else { //添加失败

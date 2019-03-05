@@ -22,8 +22,15 @@
             <tr class="orderhistory-div">
                 <td>${orderHistory.orderDate.toString().replace("T"," ").substring(0,orderHistory.orderDate.toString().lastIndexOf(":"))}</td>
                 <td style="cursor: pointer" onclick="location.href='${pageContext.request.contextPath}/restaurant.do?info=findById&id=${orderHistory.restaurant.restaurantNo }'">
-                    <img style="vertical-align:middle" src="${pageContext.request.contextPath}/images/restaurant/${orderHistory.restaurant.restaurantPortraitURL }">
-                    ${orderHistory.restaurant.restaurantName }
+                    <c:choose>
+                        <c:when test="${orderHistory.restaurant.restaurantName != null}">
+                            <img style="vertical-align:middle" src="${pageContext.request.contextPath}/images/restaurant/${orderHistory.restaurant.restaurantPortraitURL }">
+                            ${orderHistory.restaurant.restaurantName }
+                        </c:when>
+                        <c:otherwise>
+                            <span style="color: red">店铺不在当前地址的配送范围</span>
+                        </c:otherwise>
+                    </c:choose>
                 </td>
                 <td align="center">${orderHistory.price}</td>
                 <td align="center">

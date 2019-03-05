@@ -12,7 +12,7 @@
     <title>Title</title>
 </head>
 <body>
-<div style="height: 555px">
+<div >
     <div id="completeTableDiv">
         <form name="Username" id="u1" >
             <table class="tb" border="0" cellspacing="5" cellpadding="0" align="center">
@@ -46,11 +46,7 @@
         </form>
     </div>
 </div>
-<div class="mapfooter" map-footer="" ALIGN="CENTER" STYLE="position: relative;bottom: 0px;height: 130px" >
-    <div> 所有方：厦门口德满信息科技有限公司</div>
-    <div class="footer-copyright serif">互联网药品信息服务资格证书:<a href="javascript:void(0)" target="_blank">(蛙)-经营性-2016-0011</a> | 增值电信业务许可证 : <a href="javascript:void(0)" target="_blank">蛙B6-66666666</a> | <a href="javascript:void(0)" target="_blank">蛙ICP备 66666666</a> | <a href="javascript:void(0)" target="_blank">上海工商行政管理</a> Copyright ©2008-2018 厦门口德满信息科技有限公司, All Rights Reserved.</div>
-    <div class="footer-police container"><a href="javascript:void(0)" rel="nofollow" target="_blank"></a></div>
-</div>
+<jsp:include page="${pageContext.request.contextPath}/pages/bottomBar.jsp"/>
 </body>
 </html>
 <script>

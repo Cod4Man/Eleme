@@ -1,12 +1,12 @@
-<%-- 历史订单
+<%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2019/3/4
-  Time: 9:56
+  Date: 2019/3/5
+  Time: 14:41
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../common/common.jsp"%>
+<%@include file="pages/common/common.jsp"%>
 <h2 id="orderHistoryTitle">最近订单</h2>
 <hr>
 <div id="orderhistory-div">
@@ -22,27 +22,20 @@
             <tr class="orderhistory-div">
                 <td>${orderHistory.orderDate.toString().replace("T"," ").substring(0,orderHistory.orderDate.toString().lastIndexOf(":"))}</td>
                 <td style="cursor: pointer" onclick="location.href='${pageContext.request.contextPath}/restaurant.do?info=findById&id=${orderHistory.restaurant.restaurantNo }'">
-                    <c:choose>
-                        <c:when test="${orderHistory.restaurant.restaurantName != null}">
-                            <img style="vertical-align:middle" src="${pageContext.request.contextPath}/images/restaurant/${orderHistory.restaurant.restaurantPortraitURL }">
-                            ${orderHistory.restaurant.restaurantName }
-                        </c:when>
-                        <c:otherwise>
-                            <span style="color: red">店铺不在当前地址的配送范围</span>
-                        </c:otherwise>
-                    </c:choose>
+                    <img style="vertical-align:middle" src="${pageContext.request.contextPath}/images/restaurant/${orderHistory.restaurant.restaurantPortraitURL }">
+                        ${orderHistory.restaurant.restaurantName }
                 </td>
                 <td align="center">${orderHistory.price}</td>
                 <td align="center">
                         ${orderHistory.orderStatusName}
                     <c:choose>
-                        <c:when test="${orderHistory.orderStatus ==3}" > <%--配送中未签收--%>
+                        <c:when test="${orderHistory.orderStatus ==1}" > <%--未接单--%>
                             <br/>
-                            <a href="javascript:void(0)" class="setOrderStatus" orderId="${orderHistory.id}" setOrderStatus="5">未签收</a>
+                            <a href="javascript:void(0)" class="setOrderStatus" orderId="${orderHistory.id}" setOrderStatus="2">接单</a>
                         </c:when>
-                        <c:when test="${orderHistory.orderStatus ==5}"><%--已签收未评价--%>
+                        <c:when test="${orderHistory.orderStatus ==2}"><%--已接单未配送--%>
                             <br/>
-                            <a href="javascript:void(0)" class="setOrderStatus" orderId="${orderHistory.id}" setOrderStatus="7">未评价</a>
+                            <a href="javascript:void(0)" class="setOrderStatus" orderId="${orderHistory.id}" setOrderStatus="3">已送出</a>
                         </c:when>
                         <c:otherwise></c:otherwise>
                     </c:choose>
@@ -54,28 +47,26 @@
         </c:forEach>
     </table>
 </div>
-
 <script>
     $(document).ready(function(){
         //订单详情查看
         $(".orderDetail-a").click(function () {
             var orderHistoryNo = $(this).attr("orderHistoryNo");
-            $("#orderHistoryTitle").html("订单详情");
-            $("#orderhistory-div").html("");
-            $("#orderhistory-div").load("${pageContext.request.contextPath}/orderhistory.do?what=orderDetail&orderHistoryNo=" +orderHistoryNo);
+            window.open("${pageContext.request.contextPath}/orderStatusServlet.do?what=orderDetail&orderHistoryNo=" +orderHistoryNo)
         });
         //订单状态操作
         $(".setOrderStatus").click(function () {
             var orderId = $(this).attr("orderId");
             var setOrderStatus = $(this).attr("setOrderStatus");
             var boo = false;
-            if (setOrderStatus ==5) {
-                if (confirm("确认签收订单吗?签收后钱会转到商家账户！")) {
+            if (setOrderStatus ==2) {
+                if (confirm("确认接单吗？")) {
                     boo = true;
                 }
-            } else if (setOrderStatus ==7) {
-                var orderComment = prompt("请输入评价内容","好吃！");
-                boo = true;
+            } else if (setOrderStatus ==3) {
+                if (confirm("外卖已经送出了吗？")) {
+                    boo = true;
+                }
             }
             if (boo == false) {
                 return;
@@ -88,17 +79,16 @@
                 "dataType" : "text",
                 "success" : function (result) {
                     if (result == "true") {
-                        if (setOrderStatus ==5) {
-                            alert("签收成功！");
-                        } else if (setOrderStatus ==7) {
-                            alert("评价成功！");
+                        if (setOrderStatus ==2) {
+                            alert("接单成功！");
+                        } else if (setOrderStatus ==3) {
+                            alert("配送成功！");
                         }
-                        location.href = "${pageContext.request.contextPath}/pages/consumers/consumerCenter.jsp?orderHistory=zzzz";
                     } else {
-                        if (setOrderStatus ==5) {
-                            alert("签收失败！");
-                        } else if (setOrderStatus ==7) {
-                            alert("评价失败！");
+                        if (setOrderStatus ==2) {
+                            alert("接单失败！");
+                        } else if (setOrderStatus ==3) {
+                            alert("配送失败！");
                         }
                     }
                 }
@@ -106,6 +96,3 @@
         });
     });
 </script>
-
-
-

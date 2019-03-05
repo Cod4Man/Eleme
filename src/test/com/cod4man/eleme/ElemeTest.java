@@ -77,4 +77,24 @@ public class ElemeTest {
             System.out.println("增加失败！");
         }
     }
+    @Test
+    public void javaSETEst() {
+        byte a =1;
+        byte b=1;
+//报错 byte=int        byte c = a-b;
+        short d =1;
+        short e = 1;
+//报错 short=int        short f = d- e;
+//        byte char short  int long boolean double float
+        char g =1;
+        char h = 1;
+//报错 char=int        char i = g-h;
+        long al = 1;
+        long bl= 1;
+        long cl = al + bl;
+
+        float af = 0.1f;
+        float bf = 0.1f;
+        float cf = af + bf;
+    }
 }

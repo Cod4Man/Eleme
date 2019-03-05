@@ -1,24 +1,17 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2019/3/4
-  Time: 15:14
+  Date: 2019/3/5
+  Time: 14:50
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<title>卖家=订单详情</title>
 <div id="orderDetail-div" style="margin: 25px">
     <div id="restaurant-div" style="cursor: pointer" onclick="location.href='${pageContext.request.contextPath}/restaurant.do?info=findById&id=${orderHistory.restaurant.restaurantNo }'">
-        <c:choose>
-            <c:when test="${orderHistory.restaurant.restaurantName != null}">
-                <img style="vertical-align:middle" src="${pageContext.request.contextPath}/images/restaurant/${orderHistory.restaurant.restaurantPortraitURL }">
-                ${orderHistory.restaurant.restaurantName }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)">收藏</a>
-            </c:when>
-            <c:otherwise>
-                <span style="color: red">店铺不在当前地址的配送范围</span>
-            </c:otherwise>
-        </c:choose>
+        <img style="vertical-align:middle" src="${pageContext.request.contextPath}/images/restaurant/${orderHistory.restaurant.restaurantPortraitURL }">
+        ${orderHistory.restaurant.restaurantName }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>订单号：${orderHistory.orderHistoryNo} &nbsp;&nbsp;&nbsp;商家电话：${orderHistory.restaurant.restaurantPhone}
     </div>
     <div id="foods-div">
@@ -50,3 +43,4 @@
         备注：${orderHistory.comment}<br>
     </div>
 </div>
+

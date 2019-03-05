@@ -117,7 +117,7 @@ $(document).ready(function(){
   		<ul style="list-style-type: none">
   		<li><span style="font-size: 30px; font-family: fantasy;">收货地址:</span><button style="float: right;">修改地址</button></li>
 		<li>
-            <input readonly name="dizhi" title="nihao" style=" width:100%;height: 100px; resize:none; " value="${sessionScope.consumer.consumerAddressChecked.id}"/>
+            <input readonly name="dizhi" title="nihao" style="display: none;width:100%;height: 100px; resize:none; " value="${sessionScope.consumer.consumerAddressChecked.id}"/>
             ${sessionScope.consumer.consumerAddressChecked.name}${sessionScope.consumer.consumerAddressChecked.phoneNum}<br/>
             ${sessionScope.consumer.consumerAddressChecked.comment}
         </li>
