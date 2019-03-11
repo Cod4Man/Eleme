@@ -1,0 +1,82 @@
+
+
+#rightConsumer{
+    padding: 20px;
+    float: left;
+    width: 80%;
+    height: 40%;
+    background-color: rgba(181, 181, 181, 0.22);
+    color: blue;
+   }
+
+
+/*个人中心*/
+#showCenter{
+    color: #442332;
+
+}
+#showCenter:hover{
+    color: blue;
+}
+
+
+
+/*我的订单*/
+#showOrder{
+    color: #442332;
+}
+#showOrder:hover{
+    color: blue;
+}
+
+
+
+/*我的资料*/
+#showSpan{
+    color: #442332;
+}
+#showSpan:hover{
+    color: blue;
+}
+
+/*个人资料*/
+#showInfo{
+    color: #442332;
+}
+#showInfo:hover{
+    color: blue;
+}
+
+
+
+/*地址管理*/
+#showAddress{
+    color: #442332;
+}
+#showAddress:hover{
+    color: blue;
+}
+
+
+
+/*我的收藏*/
+#showCollet{
+    color: #442332;
+}
+#showCollet:hover{
+    color: blue;
+}
+
+
+
+/*全部*/
+#leftConsumer{
+    color: #442332;
+}
+
+
+
+
+/*#showCenter{width:260px;height:265px;border:1px solid #e5e5e5;margin-top:4%;float:left;margin-left:4%;transition: all 0.15s;  }
+#showCenter:hover{ -webkit-box-shadow: 2px 2px 8px 1px rgba(20, 20, 20, 0.15); -moz-box-shadow: 2px 2px 8px 1px rgba(20, 20, 20, 0.15)
+;box-shadow: 2px 2px 8px 1px rgba(20, 20, 20, 0.15);}*/

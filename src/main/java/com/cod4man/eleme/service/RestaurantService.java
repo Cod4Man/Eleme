@@ -14,13 +14,13 @@ import java.util.List;
  */
 public interface RestaurantService {
     //查询全部店铺
-    public List<Restaurant> findAllRestauran(String consumerNo);
+    public List<Restaurant> findAllRestauran(String consumerNo, int index);
 
     //通过店铺唯一ID查询
     public List<Restaurant> findRestauran_byId(String restaurantId, String consumerNo);
 
     //通过店铺类型查询
-    public List<Restaurant> findRestauran_byType(String restaurantType, String consumerNo);
+    public List<Restaurant> findRestauran_byType(String restaurantType, String consumerNo, int index);
 
     //通过店名查询店铺
     public List<Restaurant> findRestauran_ByName(String restaurantName, String consumerNo);

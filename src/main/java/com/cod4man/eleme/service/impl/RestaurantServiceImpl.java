@@ -3,6 +3,7 @@ package com.cod4man.eleme.service.impl;
 import com.cod4man.eleme.dao.RestaurantMapper;
 import com.cod4man.eleme.pojo.Restaurant;
 import com.cod4man.eleme.service.RestaurantService;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<Restaurant> findAllRestauran(String consumerNo) {
-        return restaurantMapper.findAllRestauran(consumerNo);
+    public List<Restaurant> findAllRestauran(String consumerNo, int index) {
+        return restaurantMapper.findAllRestauran(consumerNo,new RowBounds(index,20));
     }
 
     @Override
@@ -41,8 +42,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<Restaurant> findRestauran_byType(String restaurantType, String consumerNo) {
-        return restaurantMapper.findRestauran_byType(restaurantType, consumerNo);
+    public List<Restaurant> findRestauran_byType(String restaurantType, String consumerNo, int index) {
+        return restaurantMapper.findRestauran_byType(restaurantType, consumerNo,new RowBounds(index,20));
     }
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)

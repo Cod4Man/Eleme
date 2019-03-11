@@ -1,19 +1,19 @@
 @charset "UTF-8";
 
-ul, li {
+#bodyy ul, li {
 	list-style: none;
 }
 
-a {
+#bodyy a {
 	text-decoration: none;
 }
 
-a:hover {
+#bodyy a:hover {
 	cursor: pointer;
 	text-decoration: none;
 }
 
-a:link {
+#bodyy a:link {
 	text-decoration: none;
 }
 
@@ -48,3 +48,101 @@ a:link {
 	border: 1px solid #e6e6e6;
 	
 }
+
+#tou{
+	position:fixed;
+	top:0;
+	width: 100%; height: 30%; background-image: url("picture/food.jpg");background-size:100%;
+	}
+
+
+.food_type {
+			display: inline-block;
+			margin-left: 20px;margin-right: 20px;
+			
+			
+			}
+
+#ftype {
+		position:fixed; top:30%;
+		width:72%; height: 15%;
+		background-color: white;
+	}
+	
+#gonggao{
+		position:fixed; right:20px;top:30%;
+		width:25%; height: 50%;
+		background-color: white;
+		}
+		
+#dfoods{
+		margin-left:60px;
+		margin-top:300px;
+		width:80%; height: auto;
+		}
+		
+.gouwu,.count,.food_type,#clear {
+		cursor:pointer;
+		}
+
+#gtop{	
+		text-align:left;
+		font-size:24px;
+		color:white;
+		margin-left:-20px;
+		width:300px;
+		padding-bottom:5px ;
+		height:30PX;
+		background-color: #1E90FF;
+		}
+
+#gg	{
+	position:absolute;
+	bottom: 0;
+	left:10%;
+	width:80%;
+	font-family:楷体;
+	font-size:24px;
+	}
+	
+#gnei{
+		text-align:left;
+		font-size:18px;
+		margin-left:-20px;
+		width:300px;
+		padding-bottom:5px ;
+		height:30PX;
+	}
+	
+.gouwu{
+	width:100px;
+	height:30px;
+	border-radius: 20px;
+	background-color:#1E90FF ;
+	}
+	
+.gouwu{
+	margin-left: 70px;
+	}
+
+.nametd{
+	width:150px;
+	}
+/*星星评分*/
+/*
+.vote-star{
+	display:inline-block;!*内联元素转换成块元素，并不换行*!
+	margin-right:6px;
+	width:75px;!*5个星星的宽度*!
+	height:15px;!*1个星星的高度*!
+	overflow:hidden;
+	vertical-align:middle;
+	background:url(../images/restaurant/picture/stardark.png) repeat-x;}
+.vote-star i{
+	display:inline-block;!*内联元素转换成块元素，并不换行*!
+	height:15px;!*1个星星的高度*!
+	background:url(../images/restaurant/picture/star.png) repeat-x 0;}
+.vote-number{
+	vertical-align:middle;
+	font-family:微软雅黑,Verdana,Geneva, sans-serif;
+	font-size:12px;}*/

@@ -1,13 +1,7 @@
 package com.cod4man.eleme.servlet;
 
-import com.cod4man.eleme.pojo.Consumer;
-import com.cod4man.eleme.pojo.Foods;
-import com.cod4man.eleme.pojo.FoodsType;
-import com.cod4man.eleme.pojo.Restaurant;
-import com.cod4man.eleme.service.FoodsService;
-import com.cod4man.eleme.service.FoodsTypeService;
-import com.cod4man.eleme.service.RestaurantColletService;
-import com.cod4man.eleme.service.RestaurantService;
+import com.cod4man.eleme.pojo.*;
+import com.cod4man.eleme.service.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -33,6 +27,8 @@ public class RestaurantFindServlet extends HttpServlet {
             new ClassPathXmlApplicationContext("ApplicationContext.xml");
     private static RestaurantService rd =
             (RestaurantService) applicationContext.getBean("RestaurantService");
+    private static RestaurantTypeService rtd =
+            (RestaurantTypeService) applicationContext.getBean("RestaurantTypeService");
     private static FoodsService fd =
             (FoodsService) applicationContext.getBean("FoodsService");
     private static FoodsTypeService ftd =
@@ -49,11 +45,18 @@ public class RestaurantFindServlet extends HttpServlet {
 		//定义储存对象的集合容器
 		List<Restaurant> restList = null;
 		List<Foods> foodsList = null;
-		String info = request.getParameter("info");
+        List<RestaurantType> typeList = null;
+        //分页相关代码
+        int index = 0;
+        //查询全部店铺类型
+        typeList = rtd.findAllType();
+        request.setAttribute("typeList", typeList);
+        String info = request.getParameter("info");
+        String notice = null;
 		switch (info) {
 			case "findAll":
 				//调用查询全部方法
-				restList = rd.findAllRestauran(consumer.getConsumerNo());
+				restList = rd.findAllRestauran(consumer.getConsumerNo(), index);
 				request.setAttribute("restList", restList);
 				request.getRequestDispatcher("/pages/restaurants.jsp").forward(request, response);
 				break;
@@ -65,7 +68,9 @@ public class RestaurantFindServlet extends HttpServlet {
 				restList = rd.findRestauran_byId(id,consumer.getConsumerNo());
 				restaurantName = restList.get(0).getRestaurantName();
 				String restaurantNo2 = restList.get(0).getRestaurantNo();
+                notice = restList.get(0).getRestaurantNotice();
 				request.setAttribute("restaurantName", restaurantName);
+				request.setAttribute("notice", notice);
 				request.setAttribute("restaurantNo", restaurantNo2);
 				if (restaurantColletService.restaurantColletBoo(consumer.getConsumerNo(), restaurantNo2)) {
 				    collectboo = "true";
@@ -81,8 +86,9 @@ public class RestaurantFindServlet extends HttpServlet {
 				restList = rd.findRestauran_ByName(name,consumer.getConsumerNo());
 				restaurantName = restList.get(0).getRestaurantName();
 				String restaurantNo = restList.get(0).getRestaurantNo();
+                notice = restList.get(0).getRestaurantNotice();
+                request.setAttribute("notice", notice);
 				request.setAttribute("restaurantName", restaurantName);
-				request.setAttribute("restaurantNo", restaurantNo);
 				request.setAttribute("restaurantNo", restaurantNo);
                 if (restaurantColletService.restaurantColletBoo(consumer.getConsumerNo(), restaurantNo)) {
                     collectboo2 = "true";

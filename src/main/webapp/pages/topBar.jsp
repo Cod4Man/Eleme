@@ -29,7 +29,7 @@
 <script>
     $(document).ready(function(){
         $("#back2Restaurant").click(function () {
-            location.href = "${pageContext.request.contextPath}/pages/restaurants.jsp";
+            location.href = "${pageContext.request.contextPath}/restaurant.do?info=findAll";
         });
     });
 </script>

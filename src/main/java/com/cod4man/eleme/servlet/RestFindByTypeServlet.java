@@ -36,9 +36,9 @@ public class RestFindByTypeServlet extends HttpServlet {
 		String type = request.getParameter("type");
 		List<Restaurant> restList = null;
 		if("全部".equals(type)) {
-			restList = rd.findAllRestauran(consumer.getConsumerNo());
+			restList = rd.findAllRestauran(consumer.getConsumerNo(), 0);
 		}else {
-			restList = rd.findRestauran_byType(type,consumer.getConsumerNo());}
+			restList = rd.findRestauran_byType(type,consumer.getConsumerNo(), 0);}
 		String listJSON = JSON.toJSONString(restList);
 		PrintWriter out = response.getWriter();
 		out.print(listJSON);

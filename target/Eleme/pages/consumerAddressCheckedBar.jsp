@@ -7,8 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="common/common.jsp"%>
-<div>
-    当前位置:
+<div style="margin: 20px 80px;font-size: 13px">
+    <span style="color: #999999">当前位置:</span>
     <%--有默认地址--%>
     <c:if test="${sessionScope.consumer.consumerAddressChecked != null}">
         <%--显示默认地址--%>
@@ -16,7 +16,7 @@
                 ${sessionScope.consumer.consumerAddressChecked.city}
                 ${sessionScope.consumer.consumerAddressChecked.district}
                 ${sessionScope.consumer.consumerAddressChecked.comment}
-            <a href="javascript:void(0)" class="setAddresschecked">[切换地址]</a>
+            <a style="text-decoration: none;color: rgb(111,77,255)" href="javascript:void(0)" class="setAddresschecked">[切换地址]</a>
         </span>
     </c:if>
         <%--无默认地址--%>

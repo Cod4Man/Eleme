@@ -64,6 +64,7 @@
                   (select pointLng from address where consumerNo=#{consumerNo} and checked=1)-0.03
                   and
                   (select pointLng from address where consumerNo=#{consumerNo} and checked=1)+0.03
+                  order by r.id asc
     </select>
     <!--查询全部店铺====结束-->
 
@@ -81,6 +82,7 @@
             and
             (select pointLng from address where consumerNo=#{consumerNo} and checked=1)+0.03
         </if>
+        order by r.id asc
     </select>
     <!--通过店铺唯一ID查询=====结束-->
 
@@ -88,7 +90,7 @@
     <select id="findRestauran_byType" resultMap="RestaurantMap">
           select * from restaurant r,restaurant_type rt,address
           where r.restaurantTypeNo=rt.id and r.restaurantNo = address.consumerNo
-          and `type` like  concat('%',#{restaurantType},'%')
+          and `type`=#{restaurantType}
               and address.pointLat between
                    (select pointLat from address where consumerNo=#{consumerNo} and checked=1)-0.03
                   and
@@ -97,6 +99,7 @@
                   (select pointLng from address where consumerNo=#{consumerNo} and checked=1)-0.03
                   and
                   (select pointLng from address where consumerNo=#{consumerNo} and checked=1)+0.03
+                   order by r.id asc
     </select>
     <!--通过店铺类型查询=====结束-->
 
@@ -113,6 +116,7 @@
                   (select pointLng from address where consumerNo=#{consumerNo} and checked=1)-0.03
                   and
                   (select pointLng from address where consumerNo=#{consumerNo} and checked=1)+0.03
+                   order by r.id asc
     </select>
     <!--通过店名查询店铺=======结束-->
 </mapper>

@@ -1,10 +1,11 @@
-<%@page import="com.cod4man.eleme.pojo.Foods"%>
+<%-- <%@page import="com.cod4man.eleme.pojo.Foods"%> --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@include file="../common/common.jsp"%>
+<%-- <%@include file="../common/common.jsp"%> --%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -20,44 +21,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<link rel="stylesheet" style="text/css" href="${pageContext.request.contextPath}/css/checkout.css">
   </head>
-  <style>
-  #tou{
-  	width: 100%;
-  	height: 10%;
-  	background-color: blue;
-  }
-  #body{
-  	width: 100%;
-  	height: 80%;
-  }
-   #left{
-   float:left;
-   width: 35%;
-   height:auto;
-   position:relative;
-   }
-   #right{
-   height: auto;
-   width: 60%;
-   display:block;
-   float: right;
-   }
-  </style>
- 
-  
   <script type="text/javascript">
 $(document).ready(function(){
   	function addOption(){
   	var arr = ["0:00","1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"];
   	var time = 0;	
   		$.each(arr, function(){ 
-  		   
-  		 console.log(this);
   		 $("#time").append("<option value='"+time+"'>"+this+"</option>");
   		 time+=1;    
 		});
-  		
   	}
  	function getNow(s) {
 		return s < 10 ? '0' + s: s;
@@ -79,25 +53,26 @@ $(document).ready(function(){
   	addOption();
 });
   </script>
-  <body>
-<div >
-  	<jsp:include page="${pageContext.request.contextPath}/pages/topBar.jsp"/>
+  <body style="background-color: #bcfc93;">
+<div id="tou">
+	<jsp:include page="${pageContext.request.contextPath}/pages/topBar.jsp"/>
+  	 <%-- <jsp:include page="${pageContext.request.contextPath}/pages/topBar.jsp"/> --%>
 </div>
 <div id="body">
 <form action="<%=request.getContextPath()%>/testServlet.do?opr=checkout&restaurantNo=${param.restaurantNo}" method="post">
   	<div id="left">
   			<table>
   				<tr>
-  					<td colspan="2">订单详情</td>
-                    <td>
+  					<td colspan="2"><h2>订单详情</h2></td>
+                    <td >
                      <a href="javascript:location.href='${pageContext.request.contextPath}/restaurant.do?info=findById&id=${param.restaurantNo}'">返回商家修改..</a>
                     </td>
   				</tr>
   				<tr style="height: 35px">
-  					<td colspan="2">订单号:&nbsp;&nbsp;&nbsp;<input name="WIDout_trade_no" style="font-size:20px; border-width:0;width: 260px" type="text" id="shopId" readonly="true"></td>
+  					<td colspan="3"><h3>订单号:&nbsp;&nbsp;&nbsp;<input name="WIDout_trade_no" style="color:#EE0000; font-size:20px; border-width:0;width: 260px" type="text" id="shopId" readonly="true"></h3></td>
   				</tr>
   				<tr style="height: 35px">
-  					<td colspan="2">订单名称:&nbsp;&nbsp;&nbsp;<input name="WIDsubject" style="font-size:20px; border-width:0;" type="text" id="shopName" readonly="true" value="${param.restaurantName}"></td>
+  					<td colspan="2"><h4>订单名称:&nbsp;&nbsp;&nbsp;<input name="WIDsubject" style="color:#EE0000;font-size:18px; border-width:0;" type="text" id="shopName" readonly="true" value="${param.restaurantName}"></h4></td>
   				</tr>
   				<tr style="height: 50px">
   					<td>商品</td><td>份数</td><td>价格(元)</td>
@@ -105,27 +80,25 @@ $(document).ready(function(){
   					${body}
   			</table>
   			
-  			<span>份数:<input style="font-size:40px;  border-width:0; width:100px;" type="text" id="shopPrice" readonly="true" value="${fenshu}">
+  			<span style="position: relative;left:70%;">
   			<br>
-  			总价格:<input name="WIDtotal_amount" style="font-size:30px; border-width:0; width: auto;" type="text" id="shopPrice" readonly="true" value="${jiage}"></span>
+  			总价格:<input name="WIDtotal_amount" style="color:#EE0000; font-size:30px; border-width:0; width: auto;" type="text" id="shopPrice" readonly="true" value="${jiage}">
  			<br>
- 			
- 			
+ 			共${fenshu}份商品<input type="hidden" readonly="true" value="${fenshu}">
+ 	 		</span>
  	 </div>
   	 <div id="right">
-  	 
   		<ul style="list-style-type: none">
-  		<li><span style="font-size: 30px; font-family: fantasy;">收货地址:</span><button style="float: right;">修改地址</button></li>
+  		<li><span style="font-size: 30px; font-family: fantasy;">收货地址:</span><button style="display: none;float: right; margin-right: 40px;">修改地址</button></li>
 		<li>
-            <input readonly name="dizhi" title="nihao" style="display: none;width:100%;height: 100px; resize:none; " value="${sessionScope.consumer.consumerAddressChecked.id}"/>
+            <input readonly="true" name="dizhi" title="默认地址" style=" display: none;width:95%;height: 100px; resize:none; " value="${sessionScope.consumer.consumerAddressChecked.id}"/>
             ${sessionScope.consumer.consumerAddressChecked.name}${sessionScope.consumer.consumerAddressChecked.phoneNum}<br/>
             ${sessionScope.consumer.consumerAddressChecked.comment}
         </li>
   		<br>
   		<li><h2>其他信息</h2></li>
-  		
-  		<table >
-  			<tr >	
+  		<table>
+  			<tr>	
   				<td style="width: 100px; height: 50px;">配送时间</td>
   				<td >
   					<select id="time">
@@ -137,7 +110,7 @@ $(document).ready(function(){
   			<tr>	
   				<td style="width: 100px; height: 50px;">餐具份数</td>
   				<td >
-  					<select id="tableware">
+  					<select id="tableware" >
   						<option value="-1" selected="selected">为选择:</option>
   						<option value="1">1份</option>
   						<option value="2">2份</option>
@@ -154,11 +127,11 @@ $(document).ready(function(){
   				<td><input name="WIDbody" value="" type="text" style="width: 200px;"></td>
   			</tr>
   		</table>
-  		
-  		<input type="submit" value="确认下单">
+  		<input id="sumbit" type="submit" value="确认下单">
   		</ul>
   	 </div>
   	 </form>
 </div>
+	<jsp:include page="${pageContext.request.contextPath}/pages/bottomBar.jsp"/>
 </body>
 </html>

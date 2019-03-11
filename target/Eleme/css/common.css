@@ -129,9 +129,3 @@ span[id^=show]{
 #orederDeatilTableTitle{
     height: 30px;
 }
-.mapfooter{
-    position: absolute;
-    bottom: 0px;
-    z-index: -999;
-    bottom: 0px;
-}
