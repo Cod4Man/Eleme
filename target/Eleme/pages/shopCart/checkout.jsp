@@ -79,10 +79,10 @@ $(document).ready(function(){
   				</tr>
   					${body}
   			</table>
-  			
+
   			<span style="position: relative;left:70%;">
   			<br>
-  			总价格:<input name="WIDtotal_amount" style="color:#EE0000; font-size:30px; border-width:0; width: auto;" type="text" id="shopPrice" readonly="true" value="${jiage}">
+  			总价格:<input name="WIDtotal_amount" style="color:#EE0000; font-size:30px; border-width:0; width: 100px;" type="text" id="shopPrice" readonly="true" value="${jiage}">
  			<br>
  			共${fenshu}份商品<input type="hidden" readonly="true" value="${fenshu}">
  	 		</span>
@@ -98,7 +98,7 @@ $(document).ready(function(){
   		<br>
   		<li><h2>其他信息</h2></li>
   		<table>
-  			<tr>	
+  			<tr>
   				<td style="width: 100px; height: 50px;">配送时间</td>
   				<td >
   					<select id="time">
@@ -106,8 +106,8 @@ $(document).ready(function(){
   					</select>
   				</td>
   			</tr>
-  			
-  			<tr>	
+
+  			<tr>
   				<td style="width: 100px; height: 50px;">餐具份数</td>
   				<td >
   					<select id="tableware" >
@@ -121,8 +121,8 @@ $(document).ready(function(){
   					</select>
   				</td>
   			</tr>
-  			
-  			<tr>	
+
+  			<tr>
   				<td style="width: 100px; height: 50px;">订单备注:</td>
   				<td><input name="WIDbody" value="" type="text" style="width: 200px;"></td>
   			</tr>
@@ -131,7 +131,8 @@ $(document).ready(function(){
   		</ul>
   	 </div>
   	 </form>
-</div>
 	<jsp:include page="${pageContext.request.contextPath}/pages/bottomBar.jsp"/>
+</div>
+
 </body>
 </html>

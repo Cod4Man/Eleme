@@ -138,7 +138,7 @@ $(function(){
 			var price=$(this).parent().parent().children("td").eq(1).children("span").eq(1).text();
 		 	var rowTem = "<tr><td id=\"redtNo\" style=\"display: none\">"+foodNo+"</td><td id = \""+name+"\">"+name+"</td><td>"+price+"</td><td id='d"+foodNo+"'><ul class=\"btn-numbox\"><li><ul class=\"count\"><li><span id=\"num-jian\" class=\"num-jian\">-</span></li><li><input type=\"text\" class=\""+foodNo+"\" id=\"input-num\" value=\"1\" /></li><li><span id=\"num-jia\" class=\"num-jia\">+</span></li></ul></li></ul></td></tr>";
 			   $("#cheTable").append(rowTem); 
-			var cTb = "<tr><td><input name=\""+name+"\" type=\"text\" value=\""+foodNo+"\" /></td><td><ul class=\"btn-numbox\"><li><ul class=\"count\"><li><span id=\"num-jian\" class=\"num-jian\">-</span></li><li><input type=\"text\" name=\""+name+"\" class=\""+foodNo+"\" id=\"input-num\" value=\"1\" /></li><li><span id=\"num-jia\" class=\"num-jia\">+</span></li></ul></li></ul></td></tr>";
+			var cTb = "<tr id='f"+foodNo+"'><td><input name=\""+name+"\" type=\"text\" value=\""+foodNo+"\" /></td><td><ul class=\"btn-numbox\"><li><ul class=\"count\"><li><span id=\"num-jian\" class=\"num-jian\">-</span></li><li><input type=\"text\" name=\""+name+"\" class=\""+foodNo+"\" id=\"input-num\" value=\"1\" /></li><li><span id=\"num-jia\" class=\"num-jia\">+</span></li></ul></li></ul></td></tr>";
 				$("#clong").append(cTb);
 		});
 		/*点击减少数量  */
@@ -152,6 +152,7 @@ $(function(){
 				dataType:"text",
 				success:function (result){
 					if(result==0){
+					    $("#f"+className2).remove();
 						$("#d"+className2).parent().remove();
 						$("#g"+className2).css("display","inline-block");
 						$("#g"+className2).next().css("display","none");

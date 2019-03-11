@@ -83,8 +83,8 @@ public class ConsumerServlet extends HttpServlet {
         String smsText = "您的验证码为"+ authCode +"，请于3分钟内正确输入，如非本人操作，请忽略此短信。";
         HttpClientUtil client = HttpClientUtil.getInstance();
         //UTF发送
-//        int result = client.sendMsgUtf8(Uid, Key, smsText, phoneNum);
-        int result = 2;
+        int result = client.sendMsgUtf8(Uid, Key, smsText, phoneNum);
+//        int result = 2;
         System.out.println("电话" + phoneNum);
         if(result>0){
             System.out.println("UTF8成功发送条数=="+result);
@@ -109,7 +109,7 @@ public class ConsumerServlet extends HttpServlet {
         Consumer consumer1 = (Consumer) request.getSession().getAttribute("consumer");
         try {
             if (consumer1 != null) { //存在账号则跳转店铺列表主页
-                response.sendRedirect(request.getContextPath() + "/restaurant.do?info=findAll");
+                response.sendRedirect(request.getContextPath() + "/consumerSession.do");
             } else { //不存在账号则跳转至完善信息页面
                 request.getRequestDispatcher("/pages/consumers/completeConsumerInfo.jsp?phoneNum="
                         + phoneNum + "&authCode=" + authCode + "&authCodeReturn=" + authCodeReturn).forward(request, response);

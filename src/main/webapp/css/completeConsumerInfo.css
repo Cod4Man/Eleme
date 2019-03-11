@@ -1,0 +1,98 @@
+#name{
+    width: 60px;
+    float:left;
+    padding-left: 20px;
+    height: 30px;
+    padding-top: 3px;
+}
+#nameinp{
+    width: 270px;
+    float:left;
+    height: 30px;
+    line-height: 30px;
+}
+#name1{
+    margin: 20px;
+    width: 350px;
+    height: 40px;
+    padding-top: 10px;
+}
+#pd{
+     width: 60px;
+     float:left;
+     padding-left: 20px;
+     height: 30px;
+     padding-top: 3px;
+ }
+#pdinp{
+    width: 270px;
+    float:left;
+    height: 30px;
+    line-height: 30px;
+}
+#pd1{
+    width: 350px;
+    height: 40px;
+    padding-top: 10px;
+}
+#pwd{
+    width: 80px;
+    float:left;
+    padding-left: 20px;
+    height: 30px;
+    padding-top: 3px;
+}
+#pwdinp{
+    width: 280px;
+    float:left;
+    height: 30px;
+    line-height: 30px;
+}
+#pwd1{
+    margin-top: 20px;
+    width: 400px;
+    height: 40px;
+    padding-top: 10px;
+}
+#em{
+    width: 60px;
+    float:left;
+    padding-left: 20px;
+    height: 30px;
+    padding-top: 3px;
+}
+#eminp{
+    width: 270px;
+    float:left;
+    height: 30px;
+    line-height: 30px;
+}
+#em1{
+    margin-top: 20px;
+    width: 350px;
+    height: 40px;
+    padding-top: 10px;
+}
+#ph{
+    width: 80px;
+    float:left;
+    padding-left: 20px;
+    height: 30px;
+    padding-top: 3px;
+}
+#phinp{
+    width: 280px;
+    float:left;
+    height: 30px;
+    line-height: 30px;
+}
+#ph1{
+    margin-top: 20px;
+    width: 400px;
+    height: 40px;
+    padding-top: 10px;
+}
+#passwordStrongTd{
+    float: right;
+    margin-top: 10px;
+}

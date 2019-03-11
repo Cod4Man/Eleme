@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../common/common.jsp"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/completeConsumerInfo.css?v=<%=Math.random()%>">
 <html>
 <head>
     <title>完善信息</title>
@@ -15,53 +16,53 @@
 <h1 align="center">请完善个人信息</h1>
 <%--复合式提交form表单，包含文件上传enctype="multipart/form-data"--%>
     <form action="${pageContext.request.contextPath}/consumer.do?what=addConsumer" method="post" enctype="multipart/form-data">
-        <table  id="completeConInfoTable" align="center">
-            <tr  style="display: none">
-                <td width="90" >phoneNum</td>
-                <td width="200">
+        <div  id="completeConInfoTable" align="center">
+            <div  style="display: none">
+                <div width="90" >phoneNum</div>
+                <div width="200">
                     <input style="display: none" type="text" name="authCode" value="${param.authCode}">
                     <input style="display: none" type="text" name="authCodeReturn" value="${param.authCodeReturn}">
                     <input type="text" id="consumerPhoneNum" name="consumerPhoneNum" value="${param.phoneNum}">
-                </td>
-            </tr>
-        <tr>
-                <td width="90">昵称：</td>
-                <td width="200"><input  type="text" id="consumerNickName" name="consumerNickName" placeholder="请输入昵称"
-                            required pattern="[\u4e00-\u9fa5_a-zA-Z0-9_]{1,20}"></td>
-        </tr>
-        <tr>
-                <td >密码：</td>
-                <td ><input type="password" id="consumerLoginPsw" name="consumerLoginPsw"
-                           placeholder="请输入密码(大小写字母/数字组成)" required pattern="[A-Za-z0-9]{6,20}"></td>
-                <td id="passwordStrongTd" align="left" width="250" >
+                </div>
+            </div>
+        <div id="name1">
+                <div  id="name">昵称：</div>
+                <div  id="nameinp"><input  type="text" id="consumerNickName" name="consumerNickName" placeholder="请输入昵称"
+                            required pattern="[\u4e00-\u9fa5_a-zA-Z0-9_]{1,20}"></div>
+        </div>
+        <div id="pd1" align="center">
+                <div id="pd">密码：</div>
+                <div id="pdinp"><input type="password" id="consumerLoginPsw" name="consumerLoginPsw"
+                           placeholder="请输入密码(大小写字母/数字组成)" required pattern="[A-Za-z0-9]{6,20}"></div>
+                <div id="passwordStrongTd" align="left" width="250" >
                     <span class="passwordStrong" style="border-radius:5px 5px 5px 5px;">&nbsp;&nbsp;</span>
                     <span class="passwordStrong" style="border-radius:5px 5px 5px 5px;">&nbsp;&nbsp;</span>
                     <span class="passwordStrong" style="border-radius:5px 5px 5px 5px;">&nbsp;&nbsp;</span>
                     <span class="passwordStrong" style="border-radius:5px 5px 5px 5px;">&nbsp;&nbsp;</span>
                     <span class="passwordStrong" style="border-radius:5px 5px 5px 5px;">&nbsp;&nbsp;</span>
                     <span id="passwordStrong"></span>
-                </td>
-        </tr>
-        <tr>
-                <td>确认密码：</td>
-                <td ><input type="password" id="consumerLoginPsw2" name="consumerLoginPsw2"
-                           placeholder="请再次输入密码" required pattern="[A-Za-z0-9]{6,20}"></td>
-        </tr>
-        <tr>
-                <td>邮箱：</td>
-                <td><input type="text" id="consumerMail" name="consumerMail" placeholder="请输入邮箱"
-                           required pattern="[a-zA-Z0-9]{4,11}@163\.com"></td>
-        </tr>
-        <tr>
-                <td>上传头像：</td>
-                <td><input type="file" id="consumerPortraitURL" name="consumerPortraitURL" required ></td>
-        </tr>
-        <tr align="center">
-                <td colspan="2">
+                </div>
+        </div>
+        <div id="pwd1">
+                <div id="pwd">确认密码：</div>
+                <div id="pwdinp"><input type="password" id="consumerLoginPsw2" name="consumerLoginPsw2"
+                           placeholder="请再次输入密码" required pattern="[A-Za-z0-9]{6,20}"></div>
+        </div>
+        <div id="em1">
+                <div id="em">邮箱：</div>
+                <div id="eminp"><input type="text" id="consumerMail" name="consumerMail" placeholder="请输入邮箱"
+                           required pattern="[a-zA-Z0-9]{4,11}@163\.com"></div>
+        </div>
+        <div id="ph1">
+                <div id="ph">上传头像：</div>
+                <div id="phinp"><input type="file" id="consumerPortraitURL" name="consumerPortraitURL" required ></div>
+        </div>
+        <div align="center">
+                <div colspan="2">
                     <input id="submitConInfo" type="submit" value="提交">
-                </td>
-        </tr>
-        </table>
+                </div>
+        </div>
+        </div>
     </form>
 </body>
 </html>

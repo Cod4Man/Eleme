@@ -63,9 +63,6 @@ body{
     width: 255px;
     height: 30px;
 }
-#completeConInfoTable tr{
-    height: 35px;
-}
 #setAddresscheckedDiv{
     position: fixed;
     left:20%;

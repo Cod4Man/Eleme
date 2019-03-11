@@ -38,7 +38,7 @@
 
     <!--通过食物种类查询食物-->
     <select id="findFoodsByType" resultMap="FoodsMap">
-            select foods.* from foods,foods_type where `type` =#{foodsType}  and restaurantNo =#{restaurantNo}
+             SELECT foods.* FROM foods,foods_type WHERE foodsTypeNo = foods_type.id AND `type` = #{foodsType} AND restaurantNo = #{restaurantNo}
     </select>
     <!--通过食物种类查询食物====结束-->
 

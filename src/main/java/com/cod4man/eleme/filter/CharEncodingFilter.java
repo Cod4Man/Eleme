@@ -1,5 +1,8 @@
 package com.cod4man.eleme.filter;
 
+import com.cod4man.eleme.pojo.Consumer;
+import org.omg.CORBA.Request;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;

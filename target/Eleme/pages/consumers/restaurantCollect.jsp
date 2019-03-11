@@ -10,7 +10,7 @@
 
 <c:forEach items="${restaurantCollets}" varStatus="status" var="RestaurantCollet">
     <div  style="cursor: pointer;margin: 20px" onclick="location.href='${pageContext.request.contextPath}/restaurant.do?info=findById&id=${RestaurantCollet.restaurant.restaurantNo }'">
-            ${status.count}&nbsp;&nbsp;<img style="vertical-align:middle" src="${pageContext.request.contextPath}/images/restaurant/${RestaurantCollet.restaurant.restaurantPortraitURL }">
+            ${status.count}&nbsp;&nbsp;<img style="vertical-align:middle;height: 100px" src="${pageContext.request.contextPath}/images/restaurant/${RestaurantCollet.restaurant.restaurantPortraitURL }">
             ${RestaurantCollet.restaurant.restaurantName }
     </div>
 </c:forEach>

@@ -20,9 +20,8 @@
         //注销
         $("#logout").click(function () {
             if (confirm("确定要注销该账户吗？")) {
-                $("#goConsumer").load("${pageContext.request.contextPath}/pages/removeSessionConsumer.jsp");
-                alert("注销成功！")
-                location.reload();
+                alert("注销成功！");
+                location.href = "${pageContext.request.contextPath}/pages/removeSessionConsumer.jsp";
             }
         });
         $("#consumerPortrait").mouseenter(function () {
