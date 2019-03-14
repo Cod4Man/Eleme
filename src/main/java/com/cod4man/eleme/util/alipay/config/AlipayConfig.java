@@ -27,10 +27,10 @@ public class AlipayConfig {
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqkIfpX7qb3Q7vxtGM2CkYtqMrJeF96NMD74kGpi4BItJMzgfxYKcWuLx1bpuLApCYJOLPv0T9y6ShwSJzLtSZNVFCh6r8eM5LmNyaxJ2CvSg8lh8Le9F7yrMNtf637BPZ0lkk915lTsqePJ53YLjfXVyNQFx2vt19y+w8skYQ5VKMh4AgB/VSsYrvKS3/NhpSH5Oj9ZZ5/G0MFsqO+Uff7bI/4k6IOmErC6kad/wmYx3BR6MmUqe+8yA6z5C6X0hyVTEEhAqYy99YRL9fWXZDS1HspdZxuzdmyM0ATt4cnMFsIULkaFH8Droh2K+kEDOdB5qMQVYV2xTbnwckdAhYQIDAQAB";
 
     // 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    public static String notify_url = "http://localhost:8080/pages/shopCart/success.jsp";
+    public static String notify_url = "http://192.168.1.56:8080/pages/shopCart/success.jsp";
 
     // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    public static String return_url = "http://localhost:8080/pages/shopCart/success.jsp";
+    public static String return_url = "http://192.168.1.56:8080/pages/shopCart/success.jsp";
 
     // 签名方式
     public static String sign_type = "RSA2";

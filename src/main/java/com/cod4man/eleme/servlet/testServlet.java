@@ -136,14 +136,12 @@ public class testServlet extends HttpServlet {
             //然后删除session中的oh
             request.getSession().removeAttribute("OrderHistory");
             //然后跳转到下个页面
-            try {
-                request.getRequestDispatcher("/pages/consumers/consumerCenter.jsp?orderHistory=zzzz").forward(request, response);
-            } catch (ServletException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+			try {
+				response.sendRedirect("http://192.168.1.56:8080/pages/consumers/consumerCenter.jsp?orderHistory=zzzz");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
 }

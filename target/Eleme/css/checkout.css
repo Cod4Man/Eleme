@@ -5,7 +5,7 @@
 	top: 0;
 	width: 100%;
 	height: 9%;
-	background-color: #bcfc93;
+	background-color: #fcf2dc;
 }
 
 #bottom {
@@ -13,7 +13,7 @@
 	bottom: 0px;*/
 	height: 20%;
 	width: 100%;
-	background-color: #bcfc93;
+	background-color: #fcf2dc;
 }
 
 #body{
@@ -21,7 +21,7 @@
 	top: 80px;
 	width: 100%;
 	height: auto;
-	background-color: #bcfc93;
+	background-color: #fcf2dc;
 }
 
 #left {
@@ -59,7 +59,7 @@ body {
 	text-shadow: 5px 5px 5px #CCCCCC;
 	margin: 0px;
 	padding: 0px;
-	background-color: #bcfc93;
+	background-color: #fcf2dc;
 	font-family: sans-serif;
 }
 

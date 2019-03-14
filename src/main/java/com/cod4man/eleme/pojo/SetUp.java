@@ -8,9 +8,9 @@ package com.cod4man.eleme.pojo;
  * Time:16:04
  */
 public class SetUp {
-    private String images_consumer;
-    private String images_logo;
-    private String images_restaurant_picture;
+    private String images_consumer; //买家图片
+    private String images_logo; //网站Logo
+    private String images_restaurant_picture; //店铺图片
 
     public String getImages_consumer() {
         return images_consumer;
@@ -34,5 +34,10 @@ public class SetUp {
 
     public void setImages_restaurant_picture(String images_restaurant_picture) {
         this.images_restaurant_picture = images_restaurant_picture;
+    }
+
+    @Override
+    public String toString() {
+        return "SetUp{" + "images_consumer='" + images_consumer + '\'' + ", images_logo='" + images_logo + '\'' + ", images_restaurant_picture='" + images_restaurant_picture + '\'' + '}';
     }
 }

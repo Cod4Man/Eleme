@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" style="text/css" href="${pageContext.request.contextPath}/css/checkout.css">
+	<link rel="stylesheet" style="text/css" href="${pageContext.request.contextPath}/css/checkout.css?v=<%=Math.random()%>">
   </head>
   <script type="text/javascript">
 $(document).ready(function(){
@@ -53,7 +53,7 @@ $(document).ready(function(){
   	addOption();
 });
   </script>
-  <body style="background-color: #bcfc93;">
+  <body style="background-color: #fcf2dc;">
 <div id="tou">
 	<jsp:include page="${pageContext.request.contextPath}/pages/topBar.jsp"/>
   	 <%-- <jsp:include page="${pageContext.request.contextPath}/pages/topBar.jsp"/> --%>

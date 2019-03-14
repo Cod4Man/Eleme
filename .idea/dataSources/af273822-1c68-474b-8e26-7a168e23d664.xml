@@ -1140,7 +1140,7 @@
     </column>
     <column id="280" parent="247" name="consumerVIP">
       <Position>9</Position>
-      <Comment>非会员/会员 0/1 </Comment>
+      <Comment>非会员/会员 0/1</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>

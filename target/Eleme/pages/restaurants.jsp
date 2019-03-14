@@ -99,7 +99,7 @@
     });
 </script>
 </head>
-<body style="background-color: #bcfc93;">
+<body style="background-color: #fcf2dc;">
 <div >
     <jsp:include page="${pageContext.request.contextPath}/pages/topBar.jsp"/>
     <%--<%@include file= "consumerAddressCheckedBar.jsp"%>--%>

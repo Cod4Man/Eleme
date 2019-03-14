@@ -250,7 +250,7 @@ $(function(){
 
 </script>
 </head>
-<body style="background-color: #bcfc93;">
+<body style="background-color: #fcf2dc;">
 
 	<!--顶部  -->
 	<div id="tou">

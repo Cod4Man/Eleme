@@ -155,11 +155,15 @@ public class AddressServlet extends HttpServlet {
                 printWriter.write("false");
             }
         }
-        //刷新session的consumer
         Consumer consumerTemp = new Consumer();
         consumerTemp.setConsumerPhoneNum(consumerPhoneNum);
         Consumer consumer = consumerService.conExists(consumerTemp);
-        consumer.setConsumerAddressChecked(address);
+        if (address.getChecked() == 1) {
+            //刷新session的consumer
+            consumer.setConsumerAddressChecked(address);
+        } else {
+            consumer.setConsumerAddressChecked(null);
+        }
         request.getSession().removeAttribute("consumer");
         request.getSession().setAttribute("consumer",consumer);
         }

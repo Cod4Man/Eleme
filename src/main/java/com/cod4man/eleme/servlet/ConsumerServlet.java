@@ -73,9 +73,9 @@ public class ConsumerServlet extends HttpServlet {
 
     private void sendAuthCode(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("发送验证码");
-        String Uid2 = "1936911833@qq.com";
         String Key = "d41d8cd98f00b204e980";
-        String Uid = "Weekend";
+//        String Uid = "1174729075@qq.com";
+        String Uid = "cse123";
         String Key2 = "d41d8cd98f00b204e980";
         String resultJson = "";
         String phoneNum = request.getParameter("phoneNum");

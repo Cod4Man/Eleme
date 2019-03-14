@@ -18,7 +18,7 @@
         <a href="${pageContext.request.contextPath}/pages/consumers/login.jsp">登录</a>
     </div>
     <div id="searchAddress" >
-        <h1 id="welcome">欢迎使用Eleme！</h1>
+        <h1 id="welcome">欢迎使用Eleme外卖系统订餐！</h1>
     </div>
 </div>
 <jsp:include page="/pages/bottomBar.jsp"/>
