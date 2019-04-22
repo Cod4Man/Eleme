@@ -11,7 +11,7 @@
          #{phoneNum} ,0)
     </insert>
     <!--删除地址-->
-    <delete id="deleteAddress">
+    <delete id="deleteAddress" >
           delete from address where id =#{addressId}
     </delete>
     <!--更改默认地址-->

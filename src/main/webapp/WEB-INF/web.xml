@@ -8,10 +8,7 @@
         <error-code>404</error-code>
         <location>/pages/error/404.html</location>
     </error-page>
-    <error-page>
-        <error-code>500</error-code>
-        <location>/pages/error/500.html</location>
-    </error-page>
+
 
     <servlet>
         <description>This is the description of my J2EE component</description>
@@ -26,7 +23,41 @@
         <servlet-name>init</servlet-name>
         <url-pattern>/servlet/init</url-pattern>
     </servlet-mapping>
+
+
+    <!-- needed for ContextLoaderListener <param-value>定义了要装入的 Spring 配置文件。-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:ApplicationContext.xml</param-value>
+    </context-param>
+
+    <!-- Bootstraps the root web application context before servlet initialization -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- springmvc配置dispatcherServlet -->
+
+    <!-- 入口是前端控制器 -->
+    <!--<servlet>-->
+        <!--<servlet-name>springDispatcherServlet</servlet-name>-->
+        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+        <!--<init-param>-->
+            <!--<param-name>contextConfigLocation</param-name>-->
+            <!--<param-value>classpath:ApplicationContext.xml</param-value>-->
+        <!--</init-param>-->
+        <!--<load-on-startup>1</load-on-startup>-->
+    <!--</servlet>-->
+
+    <!--&lt;!&ndash; Map all requests to the DispatcherServlet for handling &ndash;&gt;-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>springDispatcherServlet</servlet-name>-->
+        <!--<url-pattern>/</url-pattern>-->
+    <!--</servlet-mapping>-->
 </web-app>
+
+
+
 
 
 <!--
