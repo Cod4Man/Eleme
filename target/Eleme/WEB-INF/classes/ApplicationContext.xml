@@ -61,9 +61,9 @@
         </property>-->
     </bean>
     <!--配置SqlSessionTemplate替代SqlSession-->
-    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
-    </bean>
+    <!--<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">-->
+        <!--<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
+    <!--</bean>-->
     <!--自动扫描Mapper接口，将其注册成MapperFactoryBean，并命名为mapper文件名-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.cod4man.eleme.dao"/>

@@ -20,6 +20,18 @@
   </properties>
 
   <dependencies>
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>4.3.18.RELEASE</version>
+    </dependency>
+      <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc</artifactId>
+          <version>4.3.18.RELEASE</version>
+      </dependency>
     <!--蚂蚁金服-->
     <!-- https://mvnrepository.com/artifact/com.alipay.sdk/alipay-sdk-java -->
     <dependency>
